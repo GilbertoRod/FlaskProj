@@ -1,0 +1,54 @@
+{% extends 'base.html' %}
+
+  {% block style %}
+  <link rel= "stylesheet" type= "text/css" href= "{{ url_for('static',filename='styles/events.css') }}">
+  {% endblock %}
+
+  {% block title %}
+  Secret Santa | Events
+  {% endblock %}
+
+
+  {% block content %}
+
+  
+
+  <center>
+    {% if events %}
+    <div class="create-div">
+      <a href="{{url_for('create_event')}}"><button class="create-btn">Create Event +</button></a>
+      {% for event in events %}    
+      <div class="event">
+        <div class="titles-div">
+          <h1 class="e-title"><span class="event-info event-info-title">{{event.event_name}}</span></h1>
+          <h1 class="event-title e-title">Event Coordinator: <span class="event-info">{{event.coordinator.username}}</span></h1>
+          <h1 class="event-title e-title">Start Date: <span class="event-info">{{event.event_date.strftime('%m-%d-%Y')}}</span></h1>
+          <h1 class="event-title e-title"># of Members: <span class="event-info">{{ event.attendees|length }}</span></h1>
+        </div>
+
+        <div class="buttons">
+          <a href="{{ url_for('event_info', event_id=event.event_id) }}"><button class="info-btn">Info</button></a>
+          
+          {% if current_user.is_authenticated and current_user.id == event.coordinator.id %}
+            <a href="{{ url_for('delete_event', event_id=event.event_id) }}"><button class="delete-btn">Delete</button></a>
+            {% else %}
+              <button class="request-btn">Request</button>
+          {% endif %}
+        </div>
+      </div>
+      {% endfor %}
+    </div>
+    {% else %}
+    <a href="{{url_for('create_event')}}"><button class="create-btn">Create Event +</button></a>
+    {% endif %}
+
+  </center>
+
+
+
+
+
+
+  {% endblock %}
+</body>
+</html>

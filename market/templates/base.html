@@ -30,6 +30,9 @@
       <li>
         <a href="{{ url_for('entries_page') }}" class="nav-item">Entries</a>
       </li>
+      <li>
+        <a href="{{ url_for('events_page') }}" class="nav-item">Events</a>
+      </li>
     {% endif %}
     </ul>
     
@@ -40,9 +43,7 @@
       <li>
         <p class="nav-name">Hello, {{ current_user.first_name.title() }} </p>
       </li>
-      <li>
-        <a class="nav-item" href="{{ url_for('profile_page') }}">Profile</a>
-      </li>
+
       <li>
         <a class="nav-item" href="{{ url_for('logout_page') }}">Logout</a>
       </li>

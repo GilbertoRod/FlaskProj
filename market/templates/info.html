@@ -1,0 +1,73 @@
+{% extends 'base.html' %}
+
+  {% block style %}
+  <link rel= "stylesheet" type= "text/css" href= "{{ url_for('static',filename='styles/events.css') }}">
+  {% endblock %}
+
+  {% block title %}
+  Secret Santa | Event Details
+  {% endblock %}
+
+
+  {% block content %}
+
+  
+
+  <center>
+
+    <div class="create-div">
+
+
+      <div class="event">
+        <div class="titles-div">
+          <h1 class="e-title"><span class="event-info event-info-title">{{event.event_name}}</span></h1>
+          <h1 class="event-title e-title">Event Coordinator: <span class="event-info">{{event.coordinator.username}}</span></h1>
+          <h1 class="event-title e-title">Start Date: <span class="event-info">{{event.event_date.strftime('%m-%d-%Y')}}</span></h1>
+          <h1 class="event-title e-title">Members: 
+          {% for attendee in event.attendees %}
+            {% if current_user.username==attendee.user.username %}
+            <li class="event-info">{{ attendee.user.username }} </li>
+            {% else %}
+            
+            <div class="member-delete">
+              <li class="event-info">{{ attendee.user.username }}</li>
+              
+            </div>
+            {% endif %}
+          {% endfor %}
+            </h1>
+        </div>
+
+
+
+        <div class="buttons">
+
+          
+          {% if current_user.is_authenticated and current_user.id == event.coordinator.id %}
+          <br><br><br>
+            <a href="{{ url_for('delete_event', event_id=event.event_id) }}"><button class="delete-btn">Delete</button></a>
+            <br><br><br><br><br>
+            
+            <form method="POST">
+              {{ form.hidden_tag() }}
+              {{ form.username(class="user-info",placeholder="Username...") }}
+              {{ form.submit(class="add-btn") }}
+            </form>
+          {% endif %}
+
+        </div>
+      </div>
+
+    </div>
+
+
+  </center>
+
+
+
+
+
+
+  {% endblock %}
+</body>
+</html>

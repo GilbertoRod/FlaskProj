@@ -1,0 +1,172 @@
+
+body{
+  padding-left: 0px;
+  padding-right:0px;
+
+}
+
+
+.event {
+
+  background-color: rgb(149, 149, 175);
+  min-height: 350px;
+  max-width: 750px;
+  margin-top: 100px;
+  border-radius: 15px;
+  text-align: left;
+  padding:35px;
+  font-size: 12px;
+  display: flex;
+  flex-direction:column;
+  justify-content:space-between;
+  margin-left: 10px;
+  margin-right: 10px;
+}
+
+.event-title {
+  margin-top: 18px;
+}
+.event-info-title {
+font-size: 30px;
+
+}
+
+.e-title {
+  font-size: 22px;
+  color: rgb(0, 0, 0);
+  font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+}
+
+.titles-div {
+  display: inline-block;
+
+}
+
+.event-info {
+  color: rgb(56, 55, 55);
+}
+
+.request-btn {
+  cursor: pointer;
+  background-color: rgb(19, 139, 103);
+  border: none;
+  color: aliceblue;
+  padding: 10px 15px;
+  border-radius: 10px;
+  font-size: 20px;
+  font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+  margin-right: 15px;
+}
+
+.request-btn:hover{
+  background-color: rgb(46, 158, 102);
+}
+
+.request-btn:active{
+  background-color: rgb(30, 170, 105);
+}
+
+.delete-btn {
+  cursor: pointer;
+  background-color: rgb(199, 57, 47);
+  border: none;
+  color: aliceblue;
+  padding: 10px 15px;
+  border-radius: 10px;
+  font-size: 20px;
+  font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+}
+
+.delete-btn:hover{
+  background-color: rgb(226, 67, 56);
+}
+
+.delete-btn:active{
+  background-color: rgb(218, 79, 70);
+}
+
+
+
+.info-btn {
+  cursor: pointer;
+  background-color: rgb(36, 105, 209);
+  border: none;
+  color: aliceblue;
+  padding: 10px 15px;
+  border-radius: 10px;
+  font-size: 20px;
+  font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+  margin-right: 15px;
+}
+
+.info-btn:hover{
+  background-color: rgb(63, 129, 216);
+}
+
+.info-btn:active{
+  background-color: rgb(16, 87, 192);
+}
+
+.create-div {
+
+  
+  margin-top: 130px;
+
+}
+
+.create-btn{
+  cursor: pointer;
+  background-color: rgb(27, 177, 77);
+  border: none;
+  color: aliceblue;
+  padding: 10px 15px;
+  border-radius: 10px;
+  font-size: 20px;
+  margin-left: 550px;
+  font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+
+}
+.create-btn:hover{
+  background-color: rgb(33, 196, 87);
+}
+.create-btn:active{
+  background-color: rgb(24, 153, 67);
+}
+
+
+.add-btn {
+  cursor: pointer;
+  background-color: rgb(58, 146, 73);
+  border: none;
+  color: aliceblue;
+  padding: 10px 15px;
+  border-radius: 10px;
+  font-size: 20px;
+  font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+  margin-right: 15px;
+}
+
+.add-btn:hover{
+  background-color: rgb(32, 180, 57);
+}
+
+.add-btn:active{
+  background-color: rgb(44, 139, 60);
+}
+
+.user-info{
+  font-size: 20px;
+  padding: 10px;
+  border-radius: 5px;
+}
+
+
+.member-delete {
+
+  display: flex;
+  justify-content: space-between;
+}
+
+.delete-member-btn {
+  background-color: red;
+}

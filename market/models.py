@@ -12,19 +12,17 @@ def load_user(user_id):
 class User(db.Model, UserMixin):
     id = db.Column(db.Integer(), primary_key=True)
     username = db.Column(db.String(length=30), nullable=False, unique=True)
-    first_name = db.Column(db.String(length=50), nullable=False)  # New field
-    last_name = db.Column(db.String(length=50), nullable=False)   # New field
+    first_name = db.Column(db.String(length=50), nullable=False)
+    last_name = db.Column(db.String(length=50), nullable=False)
     email_address = db.Column(db.String(length=50), nullable=False, unique=True)
     password_hash = db.Column(db.String(length=60), nullable=False)
     budget = db.Column(db.Integer(), nullable=False, default=1000)
     items = db.relationship('Item', backref='owned_user', lazy=True)
+    events = db.relationship('Event', backref='coordinator', lazy=True)
+    events_attending = db.relationship('EventMembers', backref='attendees', lazy=True, overlaps="event_members")
 
-    @property
-    def prettier_budget(self):
-        if len(str(self.budget)) >= 4:
-            return f'{str(self.budget)[:-3]},{str(self.budget)[-3:]}$'
-        else:
-            return f"{self.budget}$"
+    
+
 
     @property
     def password(self):
@@ -47,3 +45,25 @@ class Item(db.Model):
     owner = db.Column(db.Integer(), db.ForeignKey('user.id'))
     def __repr__(self):
         return f'Item {self.name}'
+    
+
+class Event(db.Model):
+    event_id = db.Column(db.Integer(), primary_key=True)
+    coordinator_id = db.Column(db.Integer(), db.ForeignKey('user.id'), nullable=False)
+    event_name = db.Column(db.String(length=75), nullable=False, unique=True)
+    event_date = db.Column(db.Date())
+    attendees = db.relationship('EventMembers', backref='attended_events', lazy=True)
+   
+
+    def __repr__(self):
+        return f'Event {self.event_name}'
+    
+
+class EventMembers(db.Model):
+    id = db.Column(db.Integer(), primary_key=True)
+    event_id = db.Column(db.Integer(), db.ForeignKey('event.event_id'), nullable=False)
+    user_id = db.Column(db.Integer(), db.ForeignKey('user.id'), nullable=False)
+    user = db.relationship('User', backref='event_members', overlaps="attendees")
+    
+
+

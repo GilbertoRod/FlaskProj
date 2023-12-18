@@ -1,7 +1,7 @@
 from flask_wtf import FlaskForm
 from wtforms import StringField, PasswordField, SubmitField
 from wtforms.validators import Length, EqualTo, Email, DataRequired, ValidationError
-from market.models import User
+from market.models import User,Event
 
 class RegisterForm(FlaskForm):
 
@@ -28,4 +28,28 @@ class LoginForm(FlaskForm):
   username = StringField(label='Username:', validators=[DataRequired()])
   password = PasswordField(label='Password: ', validators=[DataRequired()])
   submit = SubmitField(label='Sign In')
+
+class EventForm(FlaskForm):
+
+  #function that checks if a username is already existing in the database
+  def validate_event_name(self, event_name_to_check):
+    event=Event.query.filter_by(event_name=event_name_to_check.data).first()
+    if event:
+      raise ValidationError('Event name already exists, please try a different event name')
+
+  event_name = StringField(label='Event Name: ', validators=[Length(min=2,max=75), DataRequired()])
+  submit = SubmitField(label='Create')
+  
+  
+class AddUserEvent(FlaskForm):
+  def validate_event_name(self, username_to_check):
+    user=User.query.filter_by(username=username_to_check.data).first()
+    if not user:
+      raise ValidationError('User Doesn\'t exist')
+  username = StringField(validators=[DataRequired()])
+  submit = SubmitField(label='Add Person')
+  
+
+
+
 

@@ -1,1 +1,40 @@
 {% extends 'base.html' %}
+
+
+{% block style %}
+<link rel= "stylesheet" type= "text/css" href= "{{ url_for('static',filename='styles/dashboard.css') }}">
+{% endblock %}
+
+
+
+{% block content %}
+<center>
+<div class="all-content-flex">
+
+  <div class="current-container">
+    <center>
+      <b>Current Events</b>
+      <br>
+      <div class="background-pic"></div>
+      <img src="{{ url_for('static',filename='images/calendar.png') }}" height="250px">
+      <br>
+      <span class="event-num">You have 0 upcoming Events</span>
+    </center>
+
+  </div>
+<div class="white-divider"></div>
+  <div class="previous-container">
+    <center>
+      <b>Previous Events</b>
+      <br>
+      <img src="{{ url_for('static',filename='images/past.png') }}" height="250px">
+      <br>
+      <span class="event-num">You have 0 previous Events</span>
+    </center>
+  </div>
+
+
+</div>
+</center>
+
+{% endblock %}
