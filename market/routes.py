@@ -20,7 +20,8 @@ def home_page():
 @app.route("/dashboard")
 @login_required
 def dashboard_page():
-    return render_template('dashboard.html')
+    user_events=EventMembers.query.filter_by(user_id=current_user.id).all()
+    return render_template('dashboard.html',user_events=user_events)
 
 
 
@@ -102,7 +103,7 @@ def create_event():
         current_date = datetime.utcnow().date()
         event_to_create=Event( coordinator_id=current_user.id,
                                 event_name=form.event_name.data,
-                                event_date=current_date,
+                                event_date=current_date
                               )
         db.session.add(event_to_create)
         db.session.commit()

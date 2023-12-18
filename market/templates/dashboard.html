@@ -8,9 +8,21 @@
 
 
 {% block content %}
-<center>
-<div class="all-content-flex">
 
+
+
+<center>
+
+
+{% if user_events %}
+  {% for event in user_events %}
+  <p>{{event.attended_events.event_name}}</p>
+  <p>{{event.attended_events.event_date}}</p>
+ 
+
+  {% endfor %}
+  {% else %}
+  <div class="all-content-flex">
   <div class="current-container">
     <center>
       <b>Current Events</b>
@@ -32,9 +44,11 @@
       <span class="event-num">You have 0 previous Events</span>
     </center>
   </div>
+  </div>
+  {% endif%}
 
 
-</div>
+
 </center>
 
 {% endblock %}
