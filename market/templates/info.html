@@ -45,7 +45,7 @@
           
           {% if current_user.is_authenticated and current_user.id == event.coordinator.id %}
           <br><br><br>
-            <a href="{{ url_for('delete_event', event_id=event.event_id) }}"><button class="delete-btn">Delete</button></a>
+            <a href="{{ url_for('delete_event', event_id=event.event_id) }}"><button class="delete-btn">Delete Event</button></a>
             <br><br><br><br><br>
             
             <form method="POST">

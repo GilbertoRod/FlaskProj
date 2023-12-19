@@ -47,9 +47,9 @@ font-size: 30px;
 }
 
 .request-btn {
+  border:1px solid black;
   cursor: pointer;
   background-color: rgb(19, 139, 103);
-  border: none;
   color: aliceblue;
   padding: 10px 15px;
   border-radius: 10px;
@@ -75,6 +75,7 @@ font-size: 30px;
   border-radius: 10px;
   font-size: 20px;
   font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+  border:1px solid black;
 }
 
 .delete-btn:hover{
@@ -97,6 +98,7 @@ font-size: 30px;
   font-size: 20px;
   font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
   margin-right: 15px;
+  border:1px solid black;
 }
 
 .info-btn:hover{
@@ -169,4 +171,27 @@ font-size: 30px;
 
 .delete-member-btn {
   background-color: red;
+}
+
+
+
+.edit-btn {
+  cursor: pointer;
+  background-color: rgb(230, 130, 15);
+  border: none;
+  color: aliceblue;
+  padding: 10px 15px;
+  border-radius: 10px;
+  font-size: 20px;
+  font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+  margin-right: 15px;
+  border:1px solid black;
+}
+
+.edit-btn:hover{
+  background-color: rgb(198, 119, 29);
+}
+
+.edit-btn:active{
+  background-color: rgb(239, 156, 61);
 }

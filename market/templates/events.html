@@ -27,11 +27,13 @@
         </div>
 
         <div class="buttons">
-          <a href="{{ url_for('event_info', event_id=event.event_id) }}"><button class="info-btn">Info</button></a>
+
           
           {% if current_user.is_authenticated and current_user.id == event.coordinator.id %}
-            <a href="{{ url_for('delete_event', event_id=event.event_id) }}"><button class="delete-btn">Delete</button></a>
+            <a href="{{ url_for('event_info', event_id=event.event_id) }}"><button class="edit-btn">Edit</button></a>
+            <a href="{{ url_for('delete_event', event_id=event.event_id) }}"><button class="delete-btn">Delete Event</button></a>
             {% else %}
+              <a href="{{ url_for('event_info', event_id=event.event_id) }}"><button class="info-btn">Info</button></a>
               <button class="request-btn">Request</button>
           {% endif %}
         </div>

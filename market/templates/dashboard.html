@@ -17,39 +17,66 @@
 {% if user_events %}
   <div class="content-container">
   <div class="event-filled">
-
+    <h3>Your Coordinator events</h3><br/>
+    <div class="event-info info-titles">
+      <div class="event-info-interior">
+        <p>Event Name</p>
+        <p># of Members</p>
+      </div>
+      <p>Action</p>
+    </div>
   {% for event in user_events %}
+    {% if event.attended_events.coordinator_id == current_user.id %}
+      <div class="event-info">
+        <div class="event-info-interior">
+        <p>{{ event.attended_events.event_name }}</p>
+        <p> {{ event.attended_events.attendees|length }}</p>
 
-      <p>{{event.attended_events.event_name}}</p>
-      <p>{{event.attended_events.event_date}}</p>
-
+        </div>
+        <a href="{{ url_for('event_info', event_id=event.event_id) }}"><button class="edit-btn">Edit</button></a>
+      </div>
+    {% endif %}
   {% endfor %}
+  <br/>
+  <h3 class="dash-title">Your Participant Events</h3><br/>
+  <div class="event-info info-titles">
+    <div class="event-info-interior">
+      <p>Event Name</p>
+      <p># of Members</p>
+    </div>
+    <p>Action</p>
+  </div>
+  {% for event in user_events %}
+  {% if current_user.is_authenticated and event.attended_events.coordinator_id != current_user.id %}
+    <div class="event-info">
+      <div class="event-info-interior">
+      <p>{{event.attended_events.event_name}}</p>
+      <p class="members">{{ event.attended_events.attendees|length }}</p>
+
+      </div>
+      <a href="{{ url_for('event_info', event_id=event.event_id) }}"><button class="info-btn">Info</button></a>
+    </div>
+  {% endif %}
+{% endfor %}
+
+
+
+
+
   </div>
   </div>
   {% else %}
   <div class="all-content-flex">
     <div class="current-container">
       <center>
-        <b>Current Events</b>
+        <b>Your Events</b>
         <br>
         <div class="background-pic"></div>
         <img src="{{ url_for('static',filename='images/calendar.png') }}" height="250px">
         <br>
-        <span class="event-num">You have 0 upcoming Events</span>
-      </center>
-
-    </div>
-  <div class="white-divider"></div>
-    <div class="previous-container">
-      <center>
-        <b>Previous Events</b>
-        <br>
-        <img src="{{ url_for('static',filename='images/past.png') }}" height="250px">
-        <br>
-        <span class="event-num">You have 0 previous Events</span>
+        <span class="event-num">You have 0 Events</span>
       </center>
     </div>
-  </div>
   </div>
   {% endif%}
 
