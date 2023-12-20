@@ -23,7 +23,16 @@
           <h1 class="e-title"><span class="event-info event-info-title">{{event.event_name}}</span></h1>
           <h1 class="event-title e-title">Event Coordinator: <span class="event-info">{{event.coordinator.username}}</span></h1>
           <h1 class="event-title e-title">Start Date: <span class="event-info">{{event.event_date.strftime('%m-%d-%Y')}}</span></h1>
-          <h1 class="event-title e-title"># of Members: <span class="event-info">{{ event.attendees|length }}</span></h1>
+          <h1 class="event-title e-title"># of Members: <span class="event-info">
+            {% set count = [] %}
+            {% for person in event.attendees%}
+             
+              {% if person.status == 'member'%}
+                {% set _ = count.append(person) %}
+              {% endif %}
+            {% endfor %}
+            {{count|length}}
+          </span></h1>
         </div>
 
         <div class="buttons">

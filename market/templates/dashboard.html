@@ -30,7 +30,15 @@
       <div class="event-info">
         <div class="event-info-interior">
         <p>{{ event.attended_events.event_name }}</p>
-        <p> {{ event.attended_events.attendees|length }}</p>
+          
+        {% set count = [] %}
+        {% for person in event.attended_events.attendees%}
+         
+          {% if person.status == 'member'%}
+            {% set _ = count.append(person) %}
+          {% endif %}
+        {% endfor %}
+        <p>{{count|length}}</p>
 
         </div>
         <a href="{{ url_for('event_info', event_id=event.event_id) }}"><button class="edit-btn">Edit</button></a>
