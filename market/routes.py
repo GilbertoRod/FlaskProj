@@ -148,7 +148,7 @@ def create_event():
         
         member_to_add = EventMembers(user_id=current_user.id,
                                      event_id=event_to_create.event_id,
-                                     status='admin')
+                                     status='member')
         db.session.add(member_to_add)
         db.session.commit()
 
