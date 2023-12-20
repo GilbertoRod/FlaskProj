@@ -218,6 +218,42 @@ def logout_page():
 
 
 
+@app.route("/accept_member/member=<int:member_id>/id=<int:event_id>", methods=['GET','POST'])
+@login_required
+def accept_member(member_id,event_id):
+    event_to_delete_from=Event.query.get_or_404(event_id)
+    if current_user.id == event_to_delete_from.coordinator_id:
+        try:
+            member_to_update=EventMembers.query.filter_by(event_id=event_id, user_id=member_id).first()
+            member_to_update.status='member'
+            db.session.commit()
+            flash('Successfully added member!', category='success')
+
+        except Exception as e:
+            print(e)
+            db.session.rollback()
+            flash('Error accepting member. Please try again.', category='danger')
+    else:
+        flash('You do not have permission to add this member.', category='danger')
+    return redirect(url_for('event_info', event_id=event_id))
+
+@app.route("/decline_member/member=<int:member_id>/id=<int:event_id>", methods=['GET','POST'])
+@login_required
+def decline_member(member_id,event_id):
+    event_to_delete_from=Event.query.get_or_404(event_id)
+    if current_user.id == event_to_delete_from.coordinator_id:
+        try:
+            EventMembers.query.filter_by(event_id=event_id, user_id=member_id).delete()
+            db.session.commit()
+            flash('Successfully Declined Member!', category='success')
+        except Exception as e:
+            print(e)
+            db.session.rollback()
+            flash('Error declining member. Please try again.', category='danger')
+    else:
+        flash('You do not have permission to Decline this member.', category='danger')
+    return redirect(url_for('event_info', event_id=event_id))
+
 
 
 

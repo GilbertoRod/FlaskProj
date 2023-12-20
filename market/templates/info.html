@@ -79,8 +79,8 @@
               <div class="request-flex">
                 <h4>{{attendee.user.username}}</h4>
                 <div class="ad-btns">
-                <button class="accept-btn">Accept</button>
-                <button class="decline-btn">Decline</button>
+                <a href="{{ url_for('accept_member', member_id=attendee.user.id, event_id=event.event_id) }}"><button class="accept-btn">Accept</button></a>
+                <a href="{{ url_for('decline_member', member_id=attendee.user.id, event_id=event.event_id) }}"><button class="decline-btn">Decline</button></a>
                 </div>
               </div>
               <br>
