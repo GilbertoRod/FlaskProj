@@ -20,7 +20,7 @@ def home_page():
 @app.route("/dashboard")
 @login_required
 def dashboard_page():
-    user_events=EventMembers.query.filter_by(user_id=current_user.id).all()
+    user_events=EventMembers.query.filter_by(user_id=current_user.id,status='member').all()
     return render_template('dashboard.html',user_events=user_events)
 
 @app.route("/events")
@@ -119,7 +119,8 @@ def event_info(event_id):
         
         
         user_to_add=EventMembers(user_id=user.id,
-                                 event_id=event_id)
+                                 event_id=event_id,
+                                 status='member')
         db.session.add(user_to_add)
         db.session.commit()
         flash('User Added Successfully!', category='success')
@@ -146,7 +147,8 @@ def create_event():
         db.session.commit()
         
         member_to_add = EventMembers(user_id=current_user.id,
-                                     event_id=event_to_create.event_id)
+                                     event_id=event_to_create.event_id,
+                                     status='admin')
         db.session.add(member_to_add)
         db.session.commit()
 
