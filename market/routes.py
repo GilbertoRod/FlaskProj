@@ -23,22 +23,37 @@ def dashboard_page():
     user_events=EventMembers.query.filter_by(user_id=current_user.id).all()
     return render_template('dashboard.html',user_events=user_events)
 
-
-
-
-@app.route("/entries")
-@login_required
-def entries_page():
-    items=Item.query.all()
-    return render_template('entries.html', items=items)
-
-
-
 @app.route("/events")
 @login_required
 def events_page():
     events=Event.query.all()
     return render_template('events.html', events=events)
+
+
+@app.route("/request_event/eventID=<int:event_id>/member=<int:member_id>", methods=['GET','POST'])
+@login_required
+def request_event(event_id,member_id):
+        try:
+            if EventMembers.query.filter_by(user_id=member_id, event_id=event_id, status='pending').first():
+                flash('You already requested this event.', category='danger')
+                return redirect(url_for('events_page'))
+            if EventMembers.query.filter_by(user_id=member_id, event_id=event_id, status='member').first():
+                flash('You\'re already a member of this event.', category='danger')
+                return redirect(url_for('events_page'))
+            
+            user_to_add=EventMembers(user_id=member_id,event_id=event_id,status='pending')
+            db.session.add(user_to_add)
+            db.session.commit()
+            flash('Request Successfull!', category='success')
+
+        except:
+            flash('Event Doesn\'t exist. Please Try A Different Event', category='danger')
+            return redirect(url_for('events_page'))
+        
+        return redirect(url_for('events_page'))
+
+
+
 
 @app.route("/delete_event/<int:event_id>", methods=['GET','POST'])
 @login_required
@@ -57,6 +72,28 @@ def delete_event(event_id):
     else:
         flash('You do not have permission to delete this event.', category='danger')
     return redirect(url_for('events_page'))
+
+
+
+
+
+
+@app.route("/delete_member/member=<int:member_id>/id=<int:event_id>", methods=['GET','POST'])
+@login_required
+def delete_member(member_id,event_id):
+    event_to_delete_from=Event.query.get_or_404(event_id)
+    if current_user.id == event_to_delete_from.coordinator_id:
+        try:
+            EventMembers.query.filter_by(event_id=event_id, user_id=member_id).delete()
+            db.session.commit()
+            flash('Successfully Deleted member!', category='success')
+        except Exception as e:
+            print(e)
+            db.session.rollback()
+            flash('Error deleting member. Please try again.', category='danger')
+    else:
+        flash('You do not have permission to delete this member.', category='danger')
+    return redirect(url_for('event_info', event_id=event_id))
 
 
 

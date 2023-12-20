@@ -167,12 +167,27 @@ font-size: 30px;
 
   display: flex;
   justify-content: space-between;
+  border-top: 1px solid black;
+  border-radius: 0px;
+  padding: 5px;
+  margin-top: 10px;
+  padding-top: 10px;
+  padding-bottom: 0px;
+  margin-left: -4px;
+
 }
 
 .delete-member-btn {
-  background-color: red;
+  background-color: rgb(145, 115, 180);
+  border-radius: 5px;
+  border: none;
+  padding: 5px;
+  font-size: 15px;
+  cursor: pointer;
 }
-
+.delete-member-btn:hover{
+  background-color: rgb(189, 157, 226);
+}
 
 
 .edit-btn {
@@ -194,4 +209,32 @@ font-size: 30px;
 
 .edit-btn:active{
   background-color: rgb(239, 156, 61);
+}
+
+.request-container{
+
+  margin-top:20px;
+  font-size: 20px;
+  color: black;
+}
+
+.request-flex {
+  display: flex;
+  justify-content: space-between;
+  color: rgb(56, 55, 55);
+}
+
+.accept-btn {
+  background-color: rgb(81, 177, 113);
+  border: none;
+  padding: 10px;
+  border-radius: 5px;
+  font-size: 12px;
+}
+.decline-btn {
+  background-color: rgb(223, 96, 96);
+  border: none;
+  padding: 10px;
+  border-radius: 5px;
+  font-size: 12px;
 }

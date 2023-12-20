@@ -34,7 +34,8 @@
             <a href="{{ url_for('delete_event', event_id=event.event_id) }}"><button class="delete-btn">Delete Event</button></a>
             {% else %}
               <a href="{{ url_for('event_info', event_id=event.event_id) }}"><button class="info-btn">Info</button></a>
-              <button class="request-btn">Request</button>
+              
+              <a href="{{ url_for('request_event', event_id=event.event_id, member_id=current_user.id) }}"><button class="request-btn">Request</button></a>
           {% endif %}
         </div>
       </div>

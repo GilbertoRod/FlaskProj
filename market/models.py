@@ -16,7 +16,6 @@ class User(db.Model, UserMixin):
     last_name = db.Column(db.String(length=50), nullable=False)
     email_address = db.Column(db.String(length=50), nullable=False, unique=True)
     password_hash = db.Column(db.String(length=60), nullable=False)
-    budget = db.Column(db.Integer(), nullable=False, default=1000)
     items = db.relationship('Item', backref='owned_user', lazy=True)
     events = db.relationship('Event', backref='coordinator', lazy=True)
     events_attending = db.relationship('EventMembers', backref='attendees', lazy=True, overlaps="event_members")
@@ -63,7 +62,6 @@ class EventMembers(db.Model):
     id = db.Column(db.Integer(), primary_key=True)
     event_id = db.Column(db.Integer(), db.ForeignKey('event.event_id'), nullable=False)
     user_id = db.Column(db.Integer(), db.ForeignKey('user.id'), nullable=False)
+    status = db.Column(db.String(20))
     user = db.relationship('User', backref='event_members', overlaps="attendees")
-    
-
 
