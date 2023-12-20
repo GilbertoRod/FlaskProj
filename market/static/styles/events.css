@@ -146,6 +146,7 @@ font-size: 30px;
   font-size: 20px;
   font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
   margin-right: 15px;
+  border: 1px solid black;
 }
 
 .add-btn:hover{
@@ -222,19 +223,30 @@ font-size: 30px;
   display: flex;
   justify-content: space-between;
   color: rgb(56, 55, 55);
+  padding: 5px;
+  margin-top: 0px;
+  height: 60px;
+  align-items: center;
+}
+.request-flex:hover {
+  background-color: rgb(127, 118, 141);
 }
 
 .accept-btn {
-  background-color: rgb(81, 177, 113);
-  border: none;
+  background-color: rgb(13, 141, 55);
+  border: 1px solid black;
   padding: 10px;
   border-radius: 5px;
-  font-size: 12px;
+  font-size: 13px;
+  color: white;
+  cursor: pointer;
 }
 .decline-btn {
-  background-color: rgb(223, 96, 96);
-  border: none;
+  background-color: rgb(240, 55, 55);
+  border: 1px solid black;
   padding: 10px;
   border-radius: 5px;
-  font-size: 12px;
+  font-size: 13px;
+  color: white;
+  cursor: pointer;
 }
