@@ -26,7 +26,7 @@ def dashboard_page():
 @app.route("/events")
 @login_required
 def events_page():
-    events=Event.query.all()
+    events=Event.query.order_by(Event.event_status.desc()).all()
     return render_template('events.html', events=events)
 
 
@@ -39,6 +39,9 @@ def request_event(event_id,member_id):
                 return redirect(url_for('events_page'))
             if EventMembers.query.filter_by(user_id=member_id, event_id=event_id, status='member').first():
                 flash('You\'re already a member of this event.', category='danger')
+                return redirect(url_for('events_page'))
+            if Event.query.filter_by(event_id=event_id, event_status='closed').first():
+                flash('This event is closed! Sorry!', category='danger')
                 return redirect(url_for('events_page'))
             
             user_to_add=EventMembers(user_id=member_id,event_id=event_id,status='pending')

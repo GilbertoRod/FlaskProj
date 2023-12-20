@@ -1,8 +1,7 @@
 
 body{
-  padding-left: 0px;
-  padding-right:0px;
-
+  margin-top: 80px;
+  padding: 0px 10px;
 }
 
 
@@ -23,18 +22,38 @@ body{
   margin-right: 10px;
 }
 
-.event-title {
-  margin-top: 18px;
-}
+
 .event-info-title {
 font-size: 30px;
 
 }
 
 .e-title {
+  margin-top: 18px;
   font-size: 22px;
   color: rgb(0, 0, 0);
   font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+}
+
+.e-status{
+  color:rgb(0, 0, 0);
+  
+}
+
+.e-status-info {
+
+}
+.event-status-info-open{
+  color:rgb(1, 94, 1);
+  font-weight: bold;
+}
+.event-status-info-prog{
+  color:rgb(65, 102, 150);
+  font-weight: bold;
+}
+.event-status-info-closed{
+  color:rgb(94, 4, 1);
+  font-weight: bold;
 }
 
 .titles-div {
@@ -110,10 +129,52 @@ font-size: 30px;
 }
 
 .create-div {
-
+  max-width: 750px;
   
-  margin-top: 130px;
+  
 
+}
+.create-btn-div-true{
+  
+  padding-top: 123px;
+  padding-right: 15px;
+  display:flex;
+  max-width: 750px;
+  justify-content: end;
+
+}
+.create-btn-yes{
+  cursor: pointer;
+  background-color: rgb(27, 177, 77);
+  border: none;
+  color: aliceblue;
+  padding: 10px 15px;
+  border-radius: 10px;
+  font-size: 20px;
+  font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+  
+}
+.create-btn:hover{
+  background-color: rgb(33, 196, 87);
+}
+.create-btn:active{
+  background-color: rgb(24, 153, 67);
+}
+
+
+
+
+
+.no-event-div{
+
+  margin-top: 200px;
+  padding: 120px;
+
+}
+.no-event-div p{
+  font-size: 50px;
+  margin-bottom: 50px;
+  font-family:'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif
 }
 
 .create-btn{
@@ -124,7 +185,7 @@ font-size: 30px;
   padding: 10px 15px;
   border-radius: 10px;
   font-size: 20px;
-  margin-left: 550px;
+  
   font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
 
 }
@@ -250,3 +311,6 @@ font-size: 30px;
   color: white;
   cursor: pointer;
 }
+
+
+

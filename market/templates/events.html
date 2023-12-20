@@ -13,17 +13,35 @@
 
   
 
-  <center>
+  
     {% if events %}
-    <div class="create-div">
-      <a href="{{url_for('create_event')}}"><button class="create-btn">Create Event +</button></a>
+    <center>
+    <div class="create-btn-div-true">
+    <a href="{{url_for('create_event')}}"><button class="create-btn-yes">Create Event +</button></a>
+    </div>
+      
+      <div class="create-div">
+      
       {% for event in events %}    
       <div class="event">
         <div class="titles-div">
+          
           <h1 class="e-title"><span class="event-info event-info-title">{{event.event_name}}</span></h1>
-          <h1 class="event-title e-title">Event Coordinator: <span class="event-info">{{event.coordinator.username}}</span></h1>
-          <h1 class="event-title e-title">Start Date: <span class="event-info">{{event.event_date.strftime('%m-%d-%Y')}}</span></h1>
-          <h1 class="event-title e-title"># of Members: <span class="event-info">
+          <h1 class="e-title e-status"><i>Status: 
+            
+            
+            {% if event.event_status|title=='Open' %}
+              <span class="event-status-info-open">{{event.event_status|upper}}</i></span></h1><br>
+            {% elif event.event_status|title=='Closed' %}
+            <span class="event-status-info-closed">{{event.event_status|upper}}</i></span></h1><br>
+
+
+            {% endif %}
+            
+          <h1 class="e-title">Event Coordinator: <span class="event-info">{{event.coordinator.username}}</span></h1>
+          <h1 class="e-title">Start Date: <span class="event-info">{{event.event_date.strftime('%m-%d-%Y')}}</span></h1>
+          
+          <h1 class="e-title"># of Members: <span class="event-info">
             {% set count = [] %}
             {% for person in event.attendees%}
              
@@ -34,7 +52,7 @@
             {{count|length}}
           </span></h1>
         </div>
-
+        <br><br><br><br>
         <div class="buttons">
 
           
@@ -43,18 +61,24 @@
             <a href="{{ url_for('delete_event', event_id=event.event_id) }}"><button class="delete-btn">Delete Event</button></a>
             {% else %}
               <a href="{{ url_for('event_info', event_id=event.event_id) }}"><button class="info-btn">Info</button></a>
-              
+              {% if event.event_status=='open'%}
               <a href="{{ url_for('request_event', event_id=event.event_id, member_id=current_user.id) }}"><button class="request-btn">Request</button></a>
-          {% endif %}
+              {% endif %}
+            {% endif %}
         </div>
       </div>
       {% endfor %}
-    </div>
+    </div></center>
     {% else %}
+    <center>
+    <div class="no-event-div">
+    <p>Be the First To Create An Event!</p>
+    
     <a href="{{url_for('create_event')}}"><button class="create-btn">Create Event +</button></a>
+    </div></center>
     {% endif %}
 
-  </center>
+
 
 
 

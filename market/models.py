@@ -51,8 +51,9 @@ class Event(db.Model):
     coordinator_id = db.Column(db.Integer(), db.ForeignKey('user.id'), nullable=False)
     event_name = db.Column(db.String(length=75), nullable=False, unique=True)
     event_date = db.Column(db.Date())
+    event_status = db.Column(db.String(length=20))
     attendees = db.relationship('EventMembers', backref='attended_events', lazy=True)
-   
+    
 
     def __repr__(self):
         return f'Event {self.event_name}'
@@ -62,6 +63,6 @@ class EventMembers(db.Model):
     id = db.Column(db.Integer(), primary_key=True)
     event_id = db.Column(db.Integer(), db.ForeignKey('event.event_id'), nullable=False)
     user_id = db.Column(db.Integer(), db.ForeignKey('user.id'), nullable=False)
-    status = db.Column(db.String(20))
+    status = db.Column(db.String(length=20))
     user = db.relationship('User', backref='event_members', overlaps="attendees")
 
