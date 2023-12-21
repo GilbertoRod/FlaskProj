@@ -1,7 +1,7 @@
 from market import app, db
 from flask import render_template, redirect, url_for, flash
 from market.models import Item, User, Event, EventMembers,EventFields,UserEventFields
-from market.forms import RegisterForm, LoginForm, EventForm, AddUserEvent,FieldsForm
+from market.forms import RegisterForm, LoginForm, EventForm, AddUserEvent,FieldsForm,UserFieldsForm
 from flask_login import login_user, logout_user, login_required, current_user
 from datetime import datetime
 #flask_login helps with determining the current user, this is why we're able to use the variable current_user without declaring it in html
@@ -107,11 +107,20 @@ def event_info(event_id):
     event = Event.query.filter_by(event_id=event_id).first()
     event_pending = EventMembers.query.filter_by(event_id=event_id,status='pending').first()
     event_fields = EventFields.query.filter_by(event_id=event_id).first()
+    member_status = EventMembers.query.filter_by(event_id=event_id,user_id=current_user.id,status='member').first()
+
+    
+    
+
+
+
     if not event:
         flash('Event not found.', category='danger')
         return redirect(url_for('events_page'))
+    
     form=AddUserEvent()
     fieldform=FieldsForm()
+    userfieldsform=UserFieldsForm()
 
     if form.validate_on_submit():
         try:
@@ -152,10 +161,13 @@ def event_info(event_id):
         db.session.add(fields_to_add)
         db.session.commit()
         flash('Fields Added Successfully!', category='success')
-        return redirect(url_for('event_info', event_id=event_id, event_pending=event_pending, event_fields=event_fields))
+        return redirect(url_for('event_info', event_id=event_id, event_pending=event_pending, event_fields=event_fields,userfieldsform=userfieldsform))
+    
+    if userfieldsform.validate_on_submit():
+        pass
         
     
-    return render_template("info.html",event=event, form=form, event_pending=event_pending, event_fields=event_fields, fieldform=fieldform)
+    return render_template("info.html",event=event, form=form, event_pending=event_pending, event_fields=event_fields, fieldform=fieldform,userfieldsform=userfieldsform,member_status=member_status)
 
 
 

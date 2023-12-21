@@ -64,6 +64,19 @@ class FieldsForm(FlaskForm):
   field_10 = StringField(label='Entry #10:')
   submit = SubmitField(label='Submit Fields')
   
+class UserFieldsForm(FlaskForm):
+  field_1 = StringField()
+  field_2 = StringField()
+  field_3 = StringField()
+  field_4 = StringField()
+  field_5 = StringField()
+  field_6 = StringField()
+  field_7 = StringField()
+  field_8 = StringField()
+  field_9 = StringField()
+  field_10 = StringField()
+  submit = SubmitField(label='Submit Info')
+  
 
 
 
