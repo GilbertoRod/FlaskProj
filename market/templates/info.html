@@ -27,7 +27,7 @@
           <h1 class="event-title e-title">Members:</h1>
           <h1 class="event-title e-title">
           
-          {% for attendee in event.attendees %}
+          {% for attendee in event.members %}
             {% if current_user.username==attendee.user.username %}
               {% if attendee.user.id==event.coordinator_id %}
                 <li class="event-info">{{ attendee.user.username }} </li>
@@ -77,7 +77,7 @@
           {% if event_pending %}
             <div class="request-container">
               <h1 class="e-title">Pending Requests:</h1><br/>
-              {% for attendee in event.attendees %}
+              {% for attendee in event.members %}
               
                 {% if attendee.status == 'pending'%}
                 <div class="request-flex">
@@ -132,7 +132,7 @@
         {% endif %}
           
 
-        {% if current_user.is_authenticated and current_user.id == event.coordinator.id and event_fields and event.attendees|length>1 %}
+        {% if current_user.is_authenticated and current_user.id == event.coordinator.id and event_fields and event.members|length>1 %}
           
           <br><br><a href="{{ url_for('start_event', event_id=event.event_id) }}"><button class="start-event-btn">Start Event</button></a>
 

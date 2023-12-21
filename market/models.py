@@ -18,7 +18,7 @@ class User(db.Model, UserMixin):
     password_hash = db.Column(db.String(length=60), nullable=False)
     items = db.relationship('Item', backref='owned_user', lazy=True)
     events = db.relationship('Event', backref='coordinator', lazy=True)
-    events_attending = db.relationship('EventMembers', backref='attendees', lazy=True, overlaps="event_members")
+    events_attending = db.relationship('EventMembers', backref='attendees', lazy=True)
 
     
 
@@ -52,7 +52,7 @@ class Event(db.Model):
     event_name = db.Column(db.String(length=75), nullable=False, unique=True)
     event_date = db.Column(db.Date())
     event_status = db.Column(db.String(length=20))
-    attendees = db.relationship('EventMembers', backref='attended_events', lazy=True)
+    members = db.relationship('EventMembers', backref='attended_events', lazy=True)
     fields = db.relationship('EventFields', backref='event_for_field', lazy=True)
     
 
@@ -65,7 +65,7 @@ class EventMembers(db.Model):
     event_id = db.Column(db.Integer(), db.ForeignKey('event.event_id'), nullable=False)
     user_id = db.Column(db.Integer(), db.ForeignKey('user.id'), nullable=False)
     status = db.Column(db.String(length=20))
-    user = db.relationship('User', backref='event_members', overlaps="attendees")
+    user = db.relationship('User', backref='event_members', lazy=True)
 
 class EventFields(db.Model):
     id = db.Column(db.Integer(), primary_key=True)

@@ -32,7 +32,7 @@
         <p>{{ event.attended_events.event_name }}</p>
           
         {% set count = [] %}
-        {% for person in event.attended_events.attendees%}
+        {% for person in event.attended_events.members%}
          
           {% if person.status == 'member'%}
             {% set _ = count.append(person) %}
@@ -59,7 +59,7 @@
     <div class="event-info">
       <div class="event-info-interior">
       <p>{{event.attended_events.event_name}}</p>
-      <p class="members">{{ event.attended_events.attendees|length }}</p>
+      <p class="members">{{ event.attended_events.members|length }}</p>
 
       </div>
       <a href="{{ url_for('event_info', event_id=event.event_id) }}"><button class="info-btn">Info</button></a>

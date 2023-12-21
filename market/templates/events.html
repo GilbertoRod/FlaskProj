@@ -43,7 +43,7 @@
           
           <h1 class="e-title"># of Members: <span class="event-info">
             {% set count = [] %}
-            {% for person in event.attendees%}
+            {% for person in event.members%}
              
               {% if person.status == 'member'%}
                 {% set _ = count.append(person) %}

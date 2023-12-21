@@ -107,10 +107,6 @@ def event_info(event_id):
     event = Event.query.filter_by(event_id=event_id).first()
     event_pending = EventMembers.query.filter_by(event_id=event_id,status='pending').first()
     event_fields = EventFields.query.filter_by(event_id=event_id).first()
-    
-    
-    
-    
     if not event:
         flash('Event not found.', category='danger')
         return redirect(url_for('events_page'))
