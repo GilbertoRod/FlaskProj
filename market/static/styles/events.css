@@ -220,11 +220,22 @@ font-size: 30px;
 
 .user-info{
   font-size: 20px;
-  padding: 10px;
+  padding: 5px;
   border-radius: 5px;
   margin-bottom: 12px;
 }
+.form-flex {
+  display: flex;
+  max-width: 450px;
+  justify-content:space-between;
+  align-items: top;
+  border-bottom: 1px solid rgba(39, 39, 39, 0.411);
+  padding-top: 15px;
 
+}
+.form-container{
+
+}
 
 .member-delete {
 
