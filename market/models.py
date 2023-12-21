@@ -66,6 +66,7 @@ class EventMembers(db.Model):
     user_id = db.Column(db.Integer(), db.ForeignKey('user.id'), nullable=False)
     status = db.Column(db.String(length=20))
     user = db.relationship('User', backref='event_members', lazy=True)
+    events = db.relationship('Event', backref='event_link', lazy=True)
 
 class EventFields(db.Model):
     id = db.Column(db.Integer(), primary_key=True)

@@ -358,3 +358,9 @@ font-size: 30px;
   border-radius:15px ;
   font-family:'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
 }
+.pending-rq{
+  display: inline-block;
+  font-style: italic;
+  font-size: 15px;
+  color: black;
+}

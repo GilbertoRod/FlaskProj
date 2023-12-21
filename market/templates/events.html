@@ -32,8 +32,10 @@
             
             {% if event.event_status|title=='Open' %}
               <span class="event-status-info-open">{{event.event_status|upper}}</i></span></h1><br>
-            {% elif event.event_status|title=='Closed' %}
+            
+              {% elif event.event_status|title=='Closed' %}
             <span class="event-status-info-closed">{{event.event_status|upper}}</i></span></h1><br>
+
 
 
             {% endif %}
@@ -61,12 +63,16 @@
             <a href="{{ url_for('delete_event', event_id=event.event_id) }}"><button class="delete-btn">Delete Event</button></a>
             {% else %}
               <a href="{{ url_for('event_info', event_id=event.event_id) }}"><button class="info-btn">Info</button></a>
+              
               {% if event.event_status=='open'%}
+              
               <a href="{{ url_for('request_event', event_id=event.event_id, member_id=current_user.id) }}"><button class="request-btn">Request</button></a>
+              
               {% endif %}
             {% endif %}
         </div>
       </div>
+
       {% endfor %}
     </div></center>
     {% else %}
