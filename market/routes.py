@@ -289,6 +289,18 @@ def decline_member(member_id,event_id):
 
 
 
+@app.route("/start_event/id=<int:event_id>", methods=['GET','POST'])
+@login_required
+def start_event(event_id):
+    event_to_update=Event.query.filter_by(event_id=event_id).first()
+    event_to_update.event_status='closed'
+    db.session.commit()
+    
+    
+    return redirect(url_for('event_info', event_id=event_id))
+
+
+
 
 
 

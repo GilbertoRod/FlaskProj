@@ -13,6 +13,7 @@
   {% block content %}
 
   
+  {% if event.event_status=='open' %}
 
   <center>
 
@@ -25,15 +26,18 @@
           <h1 class="event-title e-title">Event Coordinator: <span class="event-info">{{event.coordinator.username}}</span></h1>
           <h1 class="event-title e-title">Members:</h1>
           <h1 class="event-title e-title">
+          
           {% for attendee in event.attendees %}
             {% if current_user.username==attendee.user.username %}
               {% if attendee.user.id==event.coordinator_id %}
                 <li class="event-info">{{ attendee.user.username }} </li>
                 
               {% elif attendee.status =='member'%}
+
               <div class="member-delete">
                 <li class="event-info">{{ attendee.user.username }} </li>
               </div>
+                
                 {% endif %}
             {% else %}
             {% if attendee.status =='member'%}
@@ -128,15 +132,20 @@
         {% endif %}
           
 
+        {% if current_user.is_authenticated and current_user.id == event.coordinator.id and event_fields and event.attendees|length>1 %}
+          
+          <br><br><a href="{{ url_for('start_event', event_id=event.event_id) }}"><button class="start-event-btn">Start Event</button></a>
 
-
-
+        {% endif %}
       </div>
 
     </div>
 
 
   </center>
+  {% elif event.event_status=='closed' %}
+  <p>Closed event</p>
+  {% endif %}
 
 
 

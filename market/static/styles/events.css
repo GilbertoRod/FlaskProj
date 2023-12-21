@@ -349,3 +349,12 @@ font-size: 30px;
   font-weight: bold;
 }
 
+.start-event-btn {
+  padding: 10px;
+  background-color: rgb(32, 120, 221);
+  font-size: 20px;
+  cursor: pointer;
+  color: white;
+  border-radius:15px ;
+  font-family:'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+}
