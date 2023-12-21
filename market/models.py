@@ -53,6 +53,7 @@ class Event(db.Model):
     event_date = db.Column(db.Date())
     event_status = db.Column(db.String(length=20))
     attendees = db.relationship('EventMembers', backref='attended_events', lazy=True)
+    fields = db.relationship('EventFields', backref='event_for_field', lazy=True)
     
 
     def __repr__(self):
@@ -66,3 +67,32 @@ class EventMembers(db.Model):
     status = db.Column(db.String(length=20))
     user = db.relationship('User', backref='event_members', overlaps="attendees")
 
+class EventFields(db.Model):
+    id = db.Column(db.Integer(), primary_key=True)
+    event_id = db.Column(db.Integer(), db.ForeignKey('event.event_id'), nullable=False)
+    field_1 = db.Column(db.String(length=150), nullable=False)
+    field_2 = db.Column(db.String(length=150))
+    field_3 = db.Column(db.String(length=150))
+    field_4 = db.Column(db.String(length=150))
+    field_5 = db.Column(db.String(length=150))
+    field_6 = db.Column(db.String(length=150))
+    field_7 = db.Column(db.String(length=150))
+    field_8 = db.Column(db.String(length=150))
+    field_9 = db.Column(db.String(length=150))
+    field_10 = db.Column(db.String(length=150))
+    
+
+class UserEventFields(db.Model):
+    id = db.Column(db.Integer(), primary_key=True)
+    field_id = db.Column(db.Integer(), db.ForeignKey('event_fields.id'), nullable=False)
+    event_id = db.Column(db.Integer(), db.ForeignKey('event.event_id'), nullable=False, unique=True)
+    field_1 = db.Column(db.String(length=150))
+    field_2 = db.Column(db.String(length=150))
+    field_3 = db.Column(db.String(length=150))
+    field_4 = db.Column(db.String(length=150))
+    field_5 = db.Column(db.String(length=150))
+    field_6 = db.Column(db.String(length=150))
+    field_7 = db.Column(db.String(length=150))
+    field_8 = db.Column(db.String(length=150))
+    field_9 = db.Column(db.String(length=150))
+    field_10 = db.Column(db.String(length=150))

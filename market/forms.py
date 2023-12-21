@@ -49,6 +49,22 @@ class AddUserEvent(FlaskForm):
   username = StringField(validators=[DataRequired()])
   submit = SubmitField(label='Add Person')
   
+  
+  
+class FieldsForm(FlaskForm):
+  field_1 = StringField(label='Entry #1:', validators=[DataRequired()])
+  field_2 = StringField(label='Entry #2:')
+  field_3 = StringField(label='Entry #3:')
+  field_4 = StringField(label='Entry #4:')
+  field_5 = StringField(label='Entry #5:')
+  field_6 = StringField(label='Entry #6:')
+  field_7 = StringField(label='Entry #7:')
+  field_8 = StringField(label='Entry #8:')
+  field_9 = StringField(label='Entry #9:')
+  field_10 = StringField(label='Entry #10:')
+  submit = SubmitField(label='Submit Fields')
+  
+
 
 
 

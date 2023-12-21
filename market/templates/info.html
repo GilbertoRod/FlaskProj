@@ -2,6 +2,7 @@
 
   {% block style %}
   <link rel= "stylesheet" type= "text/css" href= "{{ url_for('static',filename='styles/events.css') }}">
+
   {% endblock %}
 
   {% block title %}
@@ -22,7 +23,6 @@
         <div class="titles-div">
           <h1 class="e-title"><span class="event-info event-info-title">{{event.event_name}}</span></h1>
           <h1 class="event-title e-title">Event Coordinator: <span class="event-info">{{event.coordinator.username}}</span></h1>
-          <h1 class="event-title e-title">Start Date: <span class="event-info">{{event.event_date.strftime('%m-%d-%Y')}}</span></h1>
           <h1 class="event-title e-title">Members:</h1>
           <h1 class="event-title e-title">
           {% for attendee in event.attendees %}
@@ -70,25 +70,67 @@
 
         </div>
         {% if current_user.is_authenticated and current_user.id == event.coordinator.id %}
-        <div class="request-container">
-          <h1 class="e-title">Pending Requests:</h1><br/>
-          
-            {% for attendee in event.attendees %}
-            
-              {% if attendee.status == 'pending'%}
-              <div class="request-flex">
-                <h4>{{attendee.user.username}}</h4>
-                <div class="ad-btns">
-                <a href="{{ url_for('accept_member', member_id=attendee.user.id, event_id=event.event_id) }}"><button class="accept-btn">Accept</button></a>
-                <a href="{{ url_for('decline_member', member_id=attendee.user.id, event_id=event.event_id) }}"><button class="decline-btn">Decline</button></a>
-                </div>
-              </div>
+          {% if event_pending %}
+            <div class="request-container">
+              <h1 class="e-title">Pending Requests:</h1><br/>
+              {% for attendee in event.attendees %}
               
-              {% endif%}
-            {% endfor %}
-
-        </div>
+                {% if attendee.status == 'pending'%}
+                <div class="request-flex">
+                  <h4>{{attendee.user.username}}</h4>
+                  <div class="ad-btns">
+                  <a href="{{ url_for('accept_member', member_id=attendee.user.id, event_id=event.event_id) }}"><button class="accept-btn">Accept</button></a>
+                  <a href="{{ url_for('decline_member', member_id=attendee.user.id, event_id=event.event_id) }}"><button class="decline-btn">Decline</button></a>
+                  </div>
+                </div>
+                {% endif%}
+              {% endfor %}
+            </div>
+          {% endif %}
         {% endif %}
+        <br><br><br><br>
+
+        
+        {% if current_user.is_authenticated and current_user.id == event.coordinator.id and not event_fields %}
+          <h1 class="fields-title">Fields For Participants to Fill:</h1>
+          <br>
+          <p class="fields-subtitle">Up to 10 fields*</p>
+          <br><br>
+          <form method="POST">
+            {{ fieldform.hidden_tag() }}
+            {{ fieldform.field_1(class="user-info", id=1, placeholder="First Field...") }}<button class="js-button" id= "first" type="button" onclick="nextfield(2,'second','first')">Add field</button><br>
+            {{ fieldform.field_2(class="js-user-info", id=2,placeholder="Second Field...") }}<button class="js-button-inv" id= "second" type="button" onclick="nextfield(3,'third','second')">Add field</button><br>
+            {{ fieldform.field_3(class="js-user-info", id=3,placeholder="Third Field...") }}<button class="js-button-inv" id= "third" type="button" onclick="nextfield(4,'fourth','third')">Add field</button><br>
+            {{ fieldform.field_4(class="js-user-info", id=4,placeholder="Fourth Field...") }}<button class="js-button-inv" id= "fourth" type="button" onclick="nextfield(5,'fifth','fourth')">Add field</button><br>
+            {{ fieldform.field_5(class="js-user-info", id=5,placeholder="Fifth Field...") }}<button class="js-button-inv" id= "fifth" type="button" onclick="nextfield(6,'sixth','fifth')">Add field</button><br>
+            {{ fieldform.field_6(class="js-user-info", id=6,placeholder="Sixth Field...") }}<button class="js-button-inv" id= "sixth" type="button" onclick="nextfield(7,'seventh','sixth')">Add field</button><br>
+            {{ fieldform.field_7(class="js-user-info", id=7,placeholder="Seventh Field...") }}<button class="js-button-inv" id= "seventh" type="button" onclick="nextfield(8,'eight','seventh')">Add field</button><br>
+            {{ fieldform.field_8(class="js-user-info", id=8,placeholder="Eighth Field...") }}<button class="js-button-inv" id= "eight" type="button" onclick="nextfield(9,'ninth','eight')">Add field</button><br>
+            {{ fieldform.field_9(class="js-user-info", id=9,placeholder="Ninth Field...") }}<button class="js-button-inv" id= "ninth" type="button" onclick="nextfield(10,'ninth','ninth')">Add field</button><br>
+            {{ fieldform.field_10(class="js-user-info", id=10,placeholder="Tenth Field...") }}<br>
+            <br>
+            {{ fieldform.submit(class="add-btn") }}
+          </form>
+        {% elif current_user.is_authenticated and event_fields %}
+        <h1 class="fields-title">Fields for This Event:</h1><br>
+          <div class="field-item">{{event_fields.field_1 | title}}</div>
+          <div class="field-item">{{event_fields.field_2 | title}}</div>
+          <div class="field-item">{{event_fields.field_3 | title}}</div>
+          <div class="field-item">{{event_fields.field_4 | title}}</div>
+          <div class="field-item">{{event_fields.field_5 | title}}</div>
+          <div class="field-item">{{event_fields.field_6 | title}}</div>
+          <div class="field-item">{{event_fields.field_7 | title}}</div>
+          <div class="field-item">{{event_fields.field_8 | title}}</div>
+          <div class="field-item">{{event_fields.field_9 | title}}</div>
+          <div class="field-item">{{event_fields.field_10 | title}}</div>
+
+
+        {% endif %}
+          
+
+
+
+
       </div>
 
     </div>
@@ -100,7 +142,21 @@
 
 
 
+  <script>
+    function nextfield(id,btnID,prevBTN){
+      console.log(id)
+      
+      document.getElementById(id).classList.add("user-info")
+      document.getElementById(id).classList.remove("js-user-info")
+      
+      document.getElementById(btnID).classList.add("js-button")
+      document.getElementById(btnID).classList.remove("js-button-inv")
+      
+      document.getElementById(prevBTN).classList.add("js-button-inv")
+      document.getElementById(prevBTN).classList.remove("js-button")
 
+    }
+  </script>
   {% endblock %}
 </body>
 </html>

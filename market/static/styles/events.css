@@ -222,6 +222,7 @@ font-size: 30px;
   font-size: 20px;
   padding: 10px;
   border-radius: 5px;
+  margin-bottom: 12px;
 }
 
 
@@ -313,4 +314,38 @@ font-size: 30px;
 }
 
 
+
+.js-user-info {
+  display: none;
+}
+
+.js-button{
+  padding: 10px 15px;
+  border-radius: 10px;
+  font-size: 20px;
+  background-color: rgb(148, 214, 240);
+  border: 1px solid black;
+  cursor: pointer;
+  margin-left: 20px;
+
+}
+.js-button-inv{
+  display: none;
+}
+
+.fields-title {
+  color: black;
+  font-size: 22px;
+}
+
+.fields-subtitle {
+  color: rgb(85, 85, 85);
+  font-weight: bold;
+  font-size: 14px;
+}
+.field-item{
+  color:rgb(26, 25, 25);
+  font-size: large;
+  font-weight: bold;
+}
 

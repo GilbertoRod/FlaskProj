@@ -1,7 +1,7 @@
 from market import app, db
 from flask import render_template, redirect, url_for, flash
-from market.models import Item, User, Event, EventMembers
-from market.forms import RegisterForm, LoginForm, EventForm, AddUserEvent
+from market.models import Item, User, Event, EventMembers,EventFields,UserEventFields
+from market.forms import RegisterForm, LoginForm, EventForm, AddUserEvent,FieldsForm
 from flask_login import login_user, logout_user, login_required, current_user
 from datetime import datetime
 #flask_login helps with determining the current user, this is why we're able to use the variable current_user without declaring it in html
@@ -65,6 +65,7 @@ def delete_event(event_id):
     if current_user.id == event_to_delete.coordinator_id:
         try:
             EventMembers.query.filter_by(event_id=event_id).delete()
+            EventFields.query.filter_by(event_id=event_id).delete()
             db.session.delete(event_to_delete)
             db.session.commit()
             flash('Successfully Deleted Event!', category='success')
@@ -104,21 +105,28 @@ def delete_member(member_id,event_id):
 @login_required
 def event_info(event_id):
     event = Event.query.filter_by(event_id=event_id).first()
+    event_pending = EventMembers.query.filter_by(event_id=event_id,status='pending').first()
+    event_fields = EventFields.query.filter_by(event_id=event_id).first()
+    
+    
+    
+    
     if not event:
         flash('Event not found.', category='danger')
         return redirect(url_for('events_page'))
     form=AddUserEvent()
-    
+    fieldform=FieldsForm()
+
     if form.validate_on_submit():
         try:
             user = User.query.filter_by(username=form.username.data).one()
         except:
             flash('User not found.', category='danger')
-            return redirect(url_for('event_info', event_id=event_id))
+            return redirect(url_for('event_info', event_id=event_id, event_pending=event_pending, event_fields=event_fields))
         
         if EventMembers.query.filter_by(user_id=user.id, event_id=event_id).first():
             flash('User is already a member of the event.', category='danger')
-            return redirect(url_for('event_info', event_id=event_id))
+            return redirect(url_for('event_info', event_id=event_id, event_pending=event_pending, event_fields=event_fields))
         
         
         user_to_add=EventMembers(user_id=user.id,
@@ -130,8 +138,28 @@ def event_info(event_id):
         if form.errors !={}: #If there are not no errors from the validation
             for err_msg in form.errors.values():
                 flash(f'There was an error!: {err_msg}', category='danger')
+                
+                
+    if fieldform.validate_on_submit():
+        fields_to_add=EventFields(event_id=event_id,
+                                  field_1=fieldform.field_1.data,
+                                  field_2=fieldform.field_2.data,
+                                  field_3=fieldform.field_3.data,
+                                  field_4=fieldform.field_4.data,
+                                  field_5=fieldform.field_5.data,
+                                  field_6=fieldform.field_6.data,
+                                  field_7=fieldform.field_7.data,
+                                  field_8=fieldform.field_8.data,
+                                  field_9=fieldform.field_9.data,
+                                  field_10=fieldform.field_10.data)
+        
+        db.session.add(fields_to_add)
+        db.session.commit()
+        flash('Fields Added Successfully!', category='success')
+        return redirect(url_for('event_info', event_id=event_id, event_pending=event_pending, event_fields=event_fields))
+        
     
-    return render_template("info.html",event=event, form=form)
+    return render_template("info.html",event=event, form=form, event_pending=event_pending, event_fields=event_fields, fieldform=fieldform)
 
 
 
@@ -144,7 +172,8 @@ def create_event():
         current_date = datetime.utcnow().date()
         event_to_create=Event( coordinator_id=current_user.id,
                                 event_name=form.event_name.data,
-                                event_date=current_date
+                                event_date=current_date,
+                                event_status="open"
                               )
         db.session.add(event_to_create)
         db.session.commit()
@@ -155,11 +184,12 @@ def create_event():
         db.session.add(member_to_add)
         db.session.commit()
 
-    
+
         flash('Event Created Successfully!', category='success')
         if form.errors !={}: #If there are not no errors from the validation
             for err_msg in form.errors.values():
                 flash(f'There was an error with creating your event: {err_msg}', category='danger')
+        return redirect(url_for('event_info', event_id=event_to_create.event_id))
 
     return render_template('create.html', form=form)
 
