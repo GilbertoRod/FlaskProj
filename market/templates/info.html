@@ -113,7 +113,7 @@
           </form>
         {% endif%}
 
-        {% if current_user.is_authenticated and event_fields and member_status%}
+        {% if current_user.is_authenticated and event_fields and member_status and not person_info%}
         <h1 class="e-title">Fill Out Your Information*</h1><br>
         
         <form method="POST" action="{{ url_for('user_fields_add', event_id=event.event_id) }}">
@@ -192,64 +192,81 @@
 
           {{userfieldsform.submit(class='submit-info-btn')}}
           </div>
-          
-
-          
         </form>
-
-
-
-
-
-
-        <!--<form method="POST">
-          {{ userfieldsform.hidden_tag() }}
+        {% elif current_user.is_authenticated and event_fields and member_status and person_info %}
           
+          <h1 class="fields-title">Your Information for This Event:</h1><br>
+          {% if person_info.field_1 %}
           <div class="field-item form-flex">
-          {{event_fields.field_1 | title}}: {{ userfieldsform.field_1(class="user-info") }}
+          {{event_fields.field_1 | title}}:
+          {{person_info.field_1 | title}}
           </div>
+          {% endif %}
 
-          <div class="field-item form-flex" id="2ef">
-          {{event_fields.field_2 | title}}: {{ userfieldsform.field_2(class="user-info") }}
+          {% if person_info.field_2 %}
+          <div class="field-item form-flex">
+          {{event_fields.field_2 | title}}:
+          {{person_info.field_2 | title}}
           </div>
-
-          <div class="field-item form-flex" id="3ef">
-          {{event_fields.field_3 | title}}: {{ userfieldsform.field_3(class="user-info") }}
+          {% endif %}
+          
+          {% if person_info.field_3 %}
+          <div class="field-item form-flex">
+          {{event_fields.field_3 | title}}:
+          {{person_info.field_3 | title}}
           </div>
+          {% endif %}
 
-          <div class="field-item form-flex" id="4ef">
-          {{event_fields.field_4 | title}}: {{ userfieldsform.field_4(class="user-info") }}
+          {% if person_info.field_4 %}
+          <div class="field-item form-flex">
+          {{event_fields.field_4 | title}}:
+          {{person_info.field_4 | title}}
           </div>
+          {% endif %}
 
-          <div class="field-item form-flex" id="5ef">
-          {{event_fields.field_5 | title}}: {{ userfieldsform.field_5(class="user-info") }}
+          {% if person_info.field_5 %}
+          <div class="field-item form-flex">
+          {{event_fields.field_5 | title}}:
+          {{person_info.field_5 | title}}
           </div>
+          {% endif %}
 
-          <div class="field-item form-flex" id="6ef">
-          {{event_fields.field_6 | title}}: {{ userfieldsform.field_6(class="user-info") }}
+          {% if person_info.field_6 %}
+          <div class="field-item form-flex">
+          {{event_fields.field_6 | title}}:
+          {{person_info.field_6 | title}}
           </div>
+          {% endif %}
 
-          <div class="field-item form-flex" id="7ef">
-          {{event_fields.field_7 | title}}: {{ userfieldsform.field_7(class="user-info") }}
+          {% if person_info.field_7 %}
+          <div class="field-item form-flex">
+          {{event_fields.field_7 | title}}:
+          {{person_info.field_7 | title}}
           </div>
+          {% endif %}
 
-          <div class="field-item form-flex" id="8ef">
-          {{event_fields.field_8 | title}}: {{ userfieldsform.field_8(class="user-info") }}
+          {% if person_info.field_8 %}
+          <div class="field-item form-flex">
+          {{event_fields.field_8 | title}}:
+          {{person_info.field_8 | title}}
           </div>
+          {% endif %}
 
-          <div class="field-item form-flex" id="9ef">
-          {{event_fields.field_9 | title}}: {{ userfieldsform.field_9(class="user-info") }}
+          {% if person_info.field_9 %}
+          <div class="field-item form-flex">
+          {{event_fields.field_9 | title}}:
+          {{person_info.field_9 | title}}
           </div>
+          {% endif %}
 
-          <div class="field-item form-flex" id="10ef">
-          {{event_fields.field_10 | title}}: {{ userfieldsform.field_10(class="user-info") }}
+          {% if person_info.field_10 %}
+          <div class="field-item form-flex">
+          {{event_fields.field_10 | title}}:
+          {{person_info.field_10 | title}}
           </div>
+          {% endif %}
 
-          {{ userfieldsform.submit(class='submit-info-btn') }}
-        </form>-->
-        
-        
-        <!--<h1>Member! {{member_status.attendees.username}}</h1>-->
+
         {% elif current_user.is_authenticated and event_fields %}
         
         <h1 class="fields-title">Fields for This Event:</h1><br>

@@ -158,6 +158,7 @@ def event_info(event_id):
     event_pending = EventMembers.query.filter_by(event_id=event_id,status='pending').first()
     event_fields = EventFields.query.filter_by(event_id=event_id).first()
     member_status = EventMembers.query.filter_by(event_id=event_id,user_id=current_user.id,status='member').first()
+    person_info = UserEventFields.query.filter_by(event_id=event_id,user_id=current_user.id).first()
 
     
 
@@ -211,7 +212,7 @@ def event_info(event_id):
         return redirect(url_for('event_info', event_id=event_id))
         
     
-    return render_template("info.html",event=event, form=form, event_pending=event_pending, event_fields=event_fields, fieldform=fieldform,userfieldsform=userfieldsform,member_status=member_status)
+    return render_template("info.html",event=event, form=form, event_pending=event_pending, event_fields=event_fields, fieldform=fieldform,userfieldsform=userfieldsform,member_status=member_status, person_info=person_info)
 
 
 
