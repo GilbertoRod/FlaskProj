@@ -1,6 +1,6 @@
 from market import app, db
 from flask import render_template, redirect, url_for, flash
-from market.models import Item, User, Event, EventMembers,EventFields,UserEventFields
+from market.models import User, Event, EventMembers,EventFields,UserEventFields
 from market.forms import RegisterForm, LoginForm, EventForm, AddUserEvent,FieldsForm,UserFieldsForm
 from flask_login import login_user, logout_user, login_required, current_user
 from datetime import datetime
