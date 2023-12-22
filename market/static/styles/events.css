@@ -23,6 +23,7 @@ body{
 }
 
 
+
 .event-info-title {
 font-size: 30px;
 
@@ -162,7 +163,20 @@ font-size: 30px;
 }
 
 
-
+.submit-info-btn{
+  font-size: 12px;
+  padding: 10px;
+  border-radius: 10px;
+  border: 1px solid black;
+  color: rgb(255, 255, 255);
+  background-color: rgb(97, 144, 255);
+  margin-top: 40px;
+  font-family:"Calibri", Geneva, Tahoma, sans-serif;
+  cursor: pointer;
+}
+.submit-info-btn:hover{
+  background-color: rgb(187, 206, 252);
+}
 
 
 .no-event-div{
