@@ -178,7 +178,7 @@ def event_info(event_id):
                                                )
         db.session.add(person_fields_to_add)
         db.session.commit()
-        flash('Fields Added Successfully!', category='success')
+        flash('User\'s Fields Added Successfully!', category='success')
         return redirect(url_for('event_info', event_id=event_id))
         
     

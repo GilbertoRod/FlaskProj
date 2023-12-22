@@ -111,7 +111,9 @@
             <br>
             {{ fieldform.submit(class="add-btn") }}
           </form>
-        {% elif current_user.is_authenticated and event_fields and member_status%}
+        {% endif%}
+
+        {% if current_user.is_authenticated and event_fields and member_status%}
         <h1 class="e-title">Fill Out Your Information*</h1><br>
         <form method="POST">
           {{ userfieldsform.hidden_tag() }}
