@@ -66,12 +66,14 @@
               
 
               
-              {% if event.event_status=='open'%}
+              {% if event.event_status=='open' and current_user.is_authenticated %}
               
               <a href="{{ url_for('request_event', event_id=event.event_id, member_id=current_user.id) }}"><button class="request-btn">Request</button></a>
-              {{current_user.events_attending}}
+
               
               {% endif %}
+
+              
             {% endif %}
         </div>
       </div>

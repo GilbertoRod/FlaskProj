@@ -374,8 +374,7 @@ font-size: 30px;
 
 .start-event-btn-inactive {
 
-  background-color: rgba(32, 162, 39, 0.54);
-  cursor: pointer;
+  background-color: rgba(32, 162, 39, 0.415);
   border: 1px solid rgb(0, 0, 0);
   color: white;
   color: rgb(255, 255, 255);
@@ -411,8 +410,39 @@ font-size: 30px;
   font-size: 15px;
   color: black;
 }
+
+
+
+
+
+.member-form-container {
+  margin-top: 50px;
+  margin-bottom: 50px;
+}
+
+.member-form-subtitle {
+  color:black;
+  font-style: italic;
+  margin-top: 15px;
+}
+.form-status-info{
+  display: flex;
+  max-width: 300px;
+  border: 1px solid red;
+  justify-content: space-between;
+}
+
+
+
 .key-btns-container{
   display: flex;
   margin-top: 50px;
   justify-content: end;
+}
+
+.need-fill-title{
+  margin-top: 18px;
+  font-size: 22px;
+  color: rgb(0, 0, 0);
+  font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
 }
