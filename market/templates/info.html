@@ -43,7 +43,10 @@
             {% if attendee.status =='member'%}
             <div class="member-delete">
               <li class="event-info">{{ attendee.user.username }} </li>
+                {% if current_user.id==event.coordinator_id %}
+                  <a href="{{ url_for('delete_member', member_id=attendee.user.id, event_id=event.event_id) }}"><button class="delete-member-btn ">Remove</button></a>
 
+                {% endif %}
               
             </div>
             {% endif %}
