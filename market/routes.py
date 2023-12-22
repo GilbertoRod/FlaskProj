@@ -21,6 +21,7 @@ def home_page():
 @login_required
 def dashboard_page():
     user_events=EventMembers.query.filter_by(user_id=current_user.id,status='member').all()
+    
     return render_template('dashboard.html',user_events=user_events)
 
 @app.route("/events")
