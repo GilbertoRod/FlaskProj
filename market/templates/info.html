@@ -283,9 +283,26 @@
         {% endif %}
         
         <div class="key-btns-container">
-        {% if current_user.is_authenticated and current_user.id == event.coordinator.id and event_fields and event.members|length>1 %}
-          
+        {% if current_user.is_authenticated and current_user.id == event.coordinator.id and event_fields and event.members|length>1 and  event.members|length==event.filled_fields|length %}
+
           <br><br><a href="{{ url_for('start_event', event_id=event.event_id) }}"><button class="start-event-btn">Start Event</button></a>
+          {% elif current_user.is_authenticated and current_user.id == event.coordinator.id and event_fields and event.members|length>1 and event.members|length!=event.filled_fields|length %}
+            {% set remainder = event.members|length - event.filled_fields|length %}
+
+            <br><br><button class="start-event-btn-inactive" title="{{remainder}} Participant(s) not ready">Start Event</button>
+        
+        
+          {% elif current_user.is_authenticated and current_user.id == event.coordinator.id and event_fields and event.members|length==1 %}
+            <br><br><button class="start-event-btn-inactive" title="need 1 more participant">Start Event</button>
+          
+          
+          {% elif current_user.is_authenticated and current_user.id == event.coordinator.id and not event_fields and event.members|length==1 %}
+            <br><br><button class="start-event-btn-inactive" title="must add at least 1 field and 1 more participant">Start Event</button>
+          
+        
+          {% elif current_user.is_authenticated and current_user.id == event.coordinator.id and not event_fields and event.members|length>1 %}
+            <br><br><button class="start-event-btn-inactive" title="must add at least 1 field">Start Event</button>
+          
 
         {% endif %}
         {% if current_user.is_authenticated and current_user.id == event.coordinator.id %}

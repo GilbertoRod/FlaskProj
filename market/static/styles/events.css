@@ -372,6 +372,21 @@ font-size: 30px;
   font-weight: bold;
 }
 
+.start-event-btn-inactive {
+
+  background-color: rgba(32, 162, 39, 0.54);
+  cursor: pointer;
+  border: 1px solid rgb(0, 0, 0);
+  color: white;
+  color: rgb(255, 255, 255);
+  padding: 10px 15px;
+  border-radius: 10px;
+  font-size: 20px;
+  font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+  margin-right: 20px;
+  }
+
+
 .start-event-btn {
 
   background-color: rgb(6, 165, 14);

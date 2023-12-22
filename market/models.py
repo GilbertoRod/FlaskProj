@@ -45,6 +45,7 @@ class Event(db.Model):
     event_status = db.Column(db.String(length=20))
     members = db.relationship('EventMembers', backref='attended_events', lazy=True)
     fields = db.relationship('EventFields', backref='event_for_field', lazy=True)
+    filled_fields = db.relationship('UserEventFields', backref='FieldEvent', lazy=True)
     
 
     def __repr__(self):
