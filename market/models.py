@@ -74,10 +74,11 @@ class EventFields(db.Model):
     field_10 = db.Column(db.String(length=150))
     
 
-class UserEventFields(db.Model):
+class UserEventFields(db.Model): 
     id = db.Column(db.Integer(), primary_key=True)
     field_id = db.Column(db.Integer(), db.ForeignKey('event_fields.id'), nullable=False)
-    event_id = db.Column(db.Integer(), db.ForeignKey('event.event_id'), nullable=False, unique=True)
+    event_id = db.Column(db.Integer(), db.ForeignKey('event.event_id'), nullable=False)
+    user_id = db.Column(db.Integer(), db.ForeignKey('user.id'), nullable=False)
     field_1 = db.Column(db.String(length=150))
     field_2 = db.Column(db.String(length=150))
     field_3 = db.Column(db.String(length=150))

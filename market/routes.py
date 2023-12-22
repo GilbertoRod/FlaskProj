@@ -110,9 +110,6 @@ def event_info(event_id):
     member_status = EventMembers.query.filter_by(event_id=event_id,user_id=current_user.id,status='member').first()
 
     
-    
-
-
 
     if not event:
         flash('Event not found.', category='danger')
@@ -127,11 +124,11 @@ def event_info(event_id):
             user = User.query.filter_by(username=form.username.data).one()
         except:
             flash('User not found.', category='danger')
-            return redirect(url_for('event_info', event_id=event_id, event_pending=event_pending, event_fields=event_fields))
+            return redirect(url_for('event_info', event_id=event_id))
         
         if EventMembers.query.filter_by(user_id=user.id, event_id=event_id).first():
             flash('User is already a member of the event.', category='danger')
-            return redirect(url_for('event_info', event_id=event_id, event_pending=event_pending, event_fields=event_fields))
+            return redirect(url_for('event_info', event_id=event_id))
         
         
         user_to_add=EventMembers(user_id=user.id,
@@ -161,10 +158,28 @@ def event_info(event_id):
         db.session.add(fields_to_add)
         db.session.commit()
         flash('Fields Added Successfully!', category='success')
-        return redirect(url_for('event_info', event_id=event_id, event_pending=event_pending, event_fields=event_fields,userfieldsform=userfieldsform))
+        return redirect(url_for('event_info', event_id=event_id))
     
     if userfieldsform.validate_on_submit():
-        pass
+        field=EventFields.query.filter_by(event_id=event_id).first()
+        person_fields_to_add = UserEventFields(field_id=field.id,
+                                               event_id=event_id,
+                                               user_id=current_user.id,
+                                               field_1=userfieldsform.field_1.data,
+                                               field_2=userfieldsform.field_2.data,
+                                               field_3=userfieldsform.field_3.data,
+                                               field_4=userfieldsform.field_4.data,
+                                               field_5=userfieldsform.field_5.data,
+                                               field_6=userfieldsform.field_6.data,
+                                               field_7=userfieldsform.field_7.data,
+                                               field_8=userfieldsform.field_8.data,
+                                               field_9=userfieldsform.field_9.data,
+                                               field_10=userfieldsform.field_10.data
+                                               )
+        db.session.add(person_fields_to_add)
+        db.session.commit()
+        flash('Fields Added Successfully!', category='success')
+        return redirect(url_for('event_info', event_id=event_id))
         
     
     return render_template("info.html",event=event, form=form, event_pending=event_pending, event_fields=event_fields, fieldform=fieldform,userfieldsform=userfieldsform,member_status=member_status)
