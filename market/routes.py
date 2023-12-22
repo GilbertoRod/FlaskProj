@@ -66,6 +66,7 @@ def delete_event(event_id):
         try:
             EventMembers.query.filter_by(event_id=event_id).delete()
             EventFields.query.filter_by(event_id=event_id).delete()
+            UserEventFields.query.filter_by(event_id=event_id).delete()
             db.session.delete(event_to_delete)
             db.session.commit()
             flash('Successfully Deleted Event!', category='success')
