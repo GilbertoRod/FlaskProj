@@ -140,25 +140,6 @@ def event_info(event_id):
         if form.errors !={}: #If there are not no errors from the validation
             for err_msg in form.errors.values():
                 flash(f'There was an error!: {err_msg}', category='danger')
-                
-                
-    if fieldform.validate_on_submit():
-        fields_to_add=EventFields(event_id=event_id,
-                                  field_1=fieldform.field_1.data,
-                                  field_2=fieldform.field_2.data,
-                                  field_3=fieldform.field_3.data,
-                                  field_4=fieldform.field_4.data,
-                                  field_5=fieldform.field_5.data,
-                                  field_6=fieldform.field_6.data,
-                                  field_7=fieldform.field_7.data,
-                                  field_8=fieldform.field_8.data,
-                                  field_9=fieldform.field_9.data,
-                                  field_10=fieldform.field_10.data)
-        
-        db.session.add(fields_to_add)
-        db.session.commit()
-        flash('Fields Added Successfully!', category='success')
-        return redirect(url_for('event_info', event_id=event_id))
     
     if userfieldsform.validate_on_submit():
         field=EventFields.query.filter_by(event_id=event_id).first()
