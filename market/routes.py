@@ -1,5 +1,5 @@
 from market import app, db
-from flask import render_template, redirect, url_for, flash
+from flask import render_template, redirect, request, url_for, flash
 from market.models import User, Event, EventMembers,EventFields,UserEventFields
 from market.forms import RegisterForm, LoginForm, EventForm, AddUserEvent,FieldsForm,UserFieldsForm
 from flask_login import login_user, logout_user, login_required, current_user
@@ -101,6 +101,42 @@ def delete_member(member_id,event_id):
 
 
 
+
+
+@app.route("/add-participant-info/id=<int:event_id>", methods=['GET','POST'])
+@login_required
+def user_fields_add(event_id):
+    if request.method == 'POST':
+        userfieldsform = UserFieldsForm()
+        
+        field=EventFields.query.filter_by(event_id=event_id).first()
+        person_fields_to_add = UserEventFields(field_id=field.id,
+                                                event_id=event_id,
+                                                user_id=current_user.id,
+                                                field_1=userfieldsform.field_1.data,
+                                                field_2=userfieldsform.field_2.data,
+                                                field_3=userfieldsform.field_3.data,
+                                                field_4=userfieldsform.field_4.data,
+                                                field_5=userfieldsform.field_5.data,
+                                                field_6=userfieldsform.field_6.data,
+                                                field_7=userfieldsform.field_7.data,
+                                                field_8=userfieldsform.field_8.data,
+                                                field_9=userfieldsform.field_9.data,
+                                                field_10=userfieldsform.field_10.data
+                                                )
+        db.session.add(person_fields_to_add)
+        db.session.commit()
+        flash('User\'s Fields Added Successfully!', category='success')
+        
+        
+        #The if statement below works, but isn't convenient for this part because some events might not use all 10 fields and the DataRequired() validator will not allow the db to be updated
+        #if userfieldsform.validate_on_submit():
+        #else:
+            #flash(userfieldsform.errors, category='danger')
+    return redirect(url_for('event_info', event_id=event_id))
+
+
+
 @app.route("/event-info/id=<int:event_id>", methods=['GET','POST'])
 @login_required
 def event_info(event_id):
@@ -140,26 +176,24 @@ def event_info(event_id):
         if form.errors !={}: #If there are not no errors from the validation
             for err_msg in form.errors.values():
                 flash(f'There was an error!: {err_msg}', category='danger')
-    
-    if userfieldsform.validate_on_submit():
-        field=EventFields.query.filter_by(event_id=event_id).first()
-        person_fields_to_add = UserEventFields(field_id=field.id,
-                                               event_id=event_id,
-                                               user_id=current_user.id,
-                                               field_1=userfieldsform.field_1.data,
-                                               field_2=userfieldsform.field_2.data,
-                                               field_3=userfieldsform.field_3.data,
-                                               field_4=userfieldsform.field_4.data,
-                                               field_5=userfieldsform.field_5.data,
-                                               field_6=userfieldsform.field_6.data,
-                                               field_7=userfieldsform.field_7.data,
-                                               field_8=userfieldsform.field_8.data,
-                                               field_9=userfieldsform.field_9.data,
-                                               field_10=userfieldsform.field_10.data
-                                               )
-        db.session.add(person_fields_to_add)
+                
+                
+    if fieldform.validate_on_submit():
+        fields_to_add=EventFields(event_id=event_id,
+                                  field_1=fieldform.field_1.data,
+                                  field_2=fieldform.field_2.data,
+                                  field_3=fieldform.field_3.data,
+                                  field_4=fieldform.field_4.data,
+                                  field_5=fieldform.field_5.data,
+                                  field_6=fieldform.field_6.data,
+                                  field_7=fieldform.field_7.data,
+                                  field_8=fieldform.field_8.data,
+                                  field_9=fieldform.field_9.data,
+                                  field_10=fieldform.field_10.data)
+        
+        db.session.add(fields_to_add)
         db.session.commit()
-        flash('User\'s Fields Added Successfully!', category='success')
+        flash('Fields Added Successfully!', category='success')
         return redirect(url_for('event_info', event_id=event_id))
         
     

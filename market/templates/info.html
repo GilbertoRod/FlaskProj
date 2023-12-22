@@ -115,67 +115,8 @@
 
         {% if current_user.is_authenticated and event_fields and member_status%}
         <h1 class="e-title">Fill Out Your Information*</h1><br>
-        <form method="POST">
-          {{ userfieldsform.hidden_tag() }}
-          
-          <div class="field-item form-flex">
-          {{event_fields.field_1 | title}}: {{ userfieldsform.field_1(class="user-info") }}
-          </div>
-
-          <div class="field-item form-flex">
-          {{event_fields.field_2 | title}}: {{ userfieldsform.field_2(class="user-info") }}
-          </div>
-
-          <div class="field-item form-flex">
-          {{event_fields.field_3 | title}}: {{ userfieldsform.field_3(class="user-info") }}
-          </div>
-
-          <div class="field-item form-flex">
-          {{event_fields.field_4 | title}}: {{ userfieldsform.field_4(class="user-info") }}
-          </div>
-
-          <div class="field-item form-flex">
-          {{event_fields.field_5 | title}}: {{ userfieldsform.field_5(class="user-info") }}
-          </div>
-
-          <div class="field-item form-flex">
-          {{event_fields.field_6 | title}}: {{ userfieldsform.field_6(class="user-info") }}
-          </div>
-
-          <div class="field-item form-flex">
-          {{event_fields.field_7 | title}}: {{ userfieldsform.field_7(class="user-info") }}
-          </div>
-
-          <div class="field-item form-flex">
-          {{event_fields.field_8 | title}}: {{ userfieldsform.field_8(class="user-info") }}
-          </div>
-
-          <div class="field-item form-flex">
-          {{event_fields.field_9 | title}}: {{ userfieldsform.field_9(class="user-info") }}
-          </div>
-
-          <div class="field-item form-flex">
-          {{event_fields.field_10 | title}}: {{ userfieldsform.field_10(class="user-info") }}
-          </div>
-
-          {{ userfieldsform.submit(class='submit-info-btn') }}
-        </form>
         
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        <!--<form method="POST">
+        <form method="POST" action="{{ url_for('user_fields_add', event_id=event.event_id) }}">
           {{ userfieldsform.hidden_tag() }}
           <div class="form-container">
           {% if event_fields.field_1 %}
@@ -254,7 +195,60 @@
           
 
           
+        </form>
+
+
+
+
+
+
+        <!--<form method="POST">
+          {{ userfieldsform.hidden_tag() }}
+          
+          <div class="field-item form-flex">
+          {{event_fields.field_1 | title}}: {{ userfieldsform.field_1(class="user-info") }}
+          </div>
+
+          <div class="field-item form-flex" id="2ef">
+          {{event_fields.field_2 | title}}: {{ userfieldsform.field_2(class="user-info") }}
+          </div>
+
+          <div class="field-item form-flex" id="3ef">
+          {{event_fields.field_3 | title}}: {{ userfieldsform.field_3(class="user-info") }}
+          </div>
+
+          <div class="field-item form-flex" id="4ef">
+          {{event_fields.field_4 | title}}: {{ userfieldsform.field_4(class="user-info") }}
+          </div>
+
+          <div class="field-item form-flex" id="5ef">
+          {{event_fields.field_5 | title}}: {{ userfieldsform.field_5(class="user-info") }}
+          </div>
+
+          <div class="field-item form-flex" id="6ef">
+          {{event_fields.field_6 | title}}: {{ userfieldsform.field_6(class="user-info") }}
+          </div>
+
+          <div class="field-item form-flex" id="7ef">
+          {{event_fields.field_7 | title}}: {{ userfieldsform.field_7(class="user-info") }}
+          </div>
+
+          <div class="field-item form-flex" id="8ef">
+          {{event_fields.field_8 | title}}: {{ userfieldsform.field_8(class="user-info") }}
+          </div>
+
+          <div class="field-item form-flex" id="9ef">
+          {{event_fields.field_9 | title}}: {{ userfieldsform.field_9(class="user-info") }}
+          </div>
+
+          <div class="field-item form-flex" id="10ef">
+          {{event_fields.field_10 | title}}: {{ userfieldsform.field_10(class="user-info") }}
+          </div>
+
+          {{ userfieldsform.submit(class='submit-info-btn') }}
         </form>-->
+        
+        
         <!--<h1>Member! {{member_status.attendees.username}}</h1>-->
         {% elif current_user.is_authenticated and event_fields %}
         
@@ -297,6 +291,7 @@
 
 
   <script>
+    
     function nextfield(id,btnID,prevBTN){
       console.log(id)
       
