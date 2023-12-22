@@ -106,6 +106,20 @@ def delete_member(member_id,event_id):
 @app.route("/add-participant-info/id=<int:event_id>", methods=['GET','POST'])
 @login_required
 def user_fields_add(event_id):
+
+
+    status_to_check=EventMembers.query.filter_by(event_id=event_id, user_id=current_user.id).first()
+    #Checks if user has access to submit
+    if not status_to_check or status_to_check.status != 'member':
+        flash('You Do Not Have Access', category='danger')
+        return redirect(url_for('event_info', event_id=event_id))
+    
+    has_entry=UserEventFields.query.filter_by(event_id=event_id,user_id=current_user.id).first()
+    #Checks if user can't submit due to already having an entry
+    if has_entry:
+        flash('You Already Submitted This Form!', category='danger')
+        return redirect(url_for('event_info', event_id=event_id))
+    
     if request.method == 'POST':
         userfieldsform = UserFieldsForm()
         
@@ -126,7 +140,7 @@ def user_fields_add(event_id):
                                                 )
         db.session.add(person_fields_to_add)
         db.session.commit()
-        flash('User\'s Fields Added Successfully!', category='success')
+        flash('Info Added Successfully!', category='success')
         
         
         #The if statement below works, but isn't convenient for this part because some events might not use all 10 fields and the DataRequired() validator will not allow the db to be updated
