@@ -335,7 +335,7 @@
 
 
 
-          {% if current_user.is_authenticated and current_user.id == event.coordinator.id and event_fields and event.members|length>2 and  event.members|length==event.filled_fields|length %}
+          {% if current_user.is_authenticated and current_user.id == event.coordinator.id and event_fields and event.members|length>1 and  event.members|length==event.filled_fields|length %}
 
           <br><br><a href="{{ url_for('start_event', event_id=event.event_id) }}"><button class="start-event-btn">Start Event</button></a>
           {% elif current_user.is_authenticated and current_user.id == event.coordinator.id and event_fields and event.members|length>1 and event.members|length!=event.filled_fields|length %}
@@ -359,6 +359,12 @@
         {% endif %}
         {% if current_user.is_authenticated and current_user.id == event.coordinator.id %}
           <br><br><br>
+          <div class="confirm-delete-event">
+            <div class="confirm-info-container">
+            <p class="confirm-delete-text">Are you sure you want to delete this event?</p>
+            <button class="delete-btn">confirm</button>
+            </div>
+          </div>
             <a href="{{ url_for('delete_event', event_id=event.event_id) }}"><button class="delete-btn">Delete Event</button></a>
         {% endif %}
         </div>
