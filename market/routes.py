@@ -373,36 +373,46 @@ def leave_event(event_id):
 def start_event(event_id):
     
     people= [ person.user_id for person in EventMembers.query.filter_by(event_id=event_id, status='member').all()]
+    
+    if GiverReceivers.query.filter_by(event_id=event_id).first():
+        flash('This event has already started!', category='danger')
+        return redirect(url_for('event_info', event_id=event_id))
+    
     if len(people)<3:
         flash('You do not have enough members to start.', category='danger')
         return redirect(url_for('event_info', event_id=event_id))
-    selection=dict()
-    choices=[person for person in people]
-    for person in people:
-        secret_person=random.choice(choices)
-        while secret_person==person or secret_person in selection:
-            secret_person=random.choice(choices)
-            if secret_person in selection and selection[secret_person] ==person:
-                continue
-            elif secret_person==person:
-                continue
-            break
-        selection[person]=secret_person
-        idx = choices.index(secret_person)
-        choices.pop(idx)
-    
-    try:
-        for giver,receiver in selection.items():
-            relationship_to_add=GiverReceivers(event_id=event_id, giver_id=giver, receiver_id=receiver)
-            db.session.add(relationship_to_add)
-    except:
-        flash('Something went wrong, try again!', category='danger')
-        return redirect(url_for('event_info', event_id=event_id))
         
-    event_to_update=Event.query.filter_by(event_id=event_id).first()
-    event_to_update.event_status='closed'
-    db.session.commit()
-    
+    event_to_check=Event.query.filter_by(event_id=event_id).first()
+    if current_user.id==event_to_check.coordinator_id:
+        selection=dict()
+        choices=[person for person in people]
+        for person in people:
+            secret_person=random.choice(choices)
+            while secret_person==person or secret_person in selection:
+                secret_person=random.choice(choices)
+                if secret_person in selection and selection[secret_person] ==person:
+                    continue
+                elif secret_person==person:
+                    continue
+                break
+            selection[person]=secret_person
+            idx = choices.index(secret_person)
+            choices.pop(idx)
+        
+        try:
+            for giver,receiver in selection.items():
+                relationship_to_add=GiverReceivers(event_id=event_id, giver_id=giver, receiver_id=receiver)
+                db.session.add(relationship_to_add)
+        except:
+            flash('Something went wrong, try again!', category='danger')
+            return redirect(url_for('event_info', event_id=event_id))
+            
+        event_to_update=Event.query.filter_by(event_id=event_id).first()
+        event_to_update.event_status='closed'
+        db.session.commit()
+    else:
+        flash('You don\'t have permission to start the event!', category='danger')
+        return redirect(url_for('event_info', event_id=event_id))
     
     return redirect(url_for('event_info', event_id=event_id))
 

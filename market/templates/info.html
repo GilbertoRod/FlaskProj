@@ -377,10 +377,40 @@
 
 
   </center>
-  {% elif event.event_status=='closed' %}
+  {% elif event.event_status=='closed' and member_status %}
   <p>Closed event</p>
-    <h1> you are giving to {{giving.receiver.first_name}}
-
+    <h1> you are giving to {{giving.receiver.first_name}}</h1>
+  
+  {% elif event.event_status=='closed'%}
+  
+  <div class="event">
+    <div class="titles-div">
+      <h1 class="e-title"><span class="event-info-title"><span style="color:rgb(245, 41, 41);">THIS IS A CLOSED EVENT</span><br><br>{{event.event_name|title}}</span></h1>
+      <h1 class="event-title e-title">Event Coordinator: <span class="event-info">{{event.coordinator.username}}</span></h1>
+      <h1 class="event-title e-title">Members:</h1>
+      <h1 class="event-title e-title">
+      
+      {% for attendee in event.members %}
+          {% if attendee.status =='member'%}
+          <div class="member-delete">
+            <li class="event-info">{{ attendee.user.username }} </li>
+          </div>
+          {% endif %}
+      {% endfor %}
+        </h1>
+    </div>
+    <br><br><br>
+    <h1 class="fields-title">Fields for This Event:</h1><br>
+    <div class="field-item">{{event_fields.field_1 | title}}</div>
+    <div class="field-item">{{event_fields.field_2 | title}}</div>
+    <div class="field-item">{{event_fields.field_3 | title}}</div>
+    <div class="field-item">{{event_fields.field_4 | title}}</div>
+    <div class="field-item">{{event_fields.field_5 | title}}</div>
+    <div class="field-item">{{event_fields.field_6 | title}}</div>
+    <div class="field-item">{{event_fields.field_7 | title}}</div>
+    <div class="field-item">{{event_fields.field_8 | title}}</div>
+    <div class="field-item">{{event_fields.field_9 | title}}</div>
+    <div class="field-item">{{event_fields.field_10 | title}}</div>
 
   {% endif %}
 

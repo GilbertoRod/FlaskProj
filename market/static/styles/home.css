@@ -1,7 +1,6 @@
 @font-face {
   font-family: 'Grinched';
   src: url("{{ url_for('static', filename='fonts/grinched.regular.otf') }}");
-
   font-style: normal;
   font-weight: 1 1000;
 }
