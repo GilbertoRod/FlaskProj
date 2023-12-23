@@ -105,40 +105,81 @@ text-shadow: 0px 0px 5px black;
 .remove-request-btn:active{
   background-color: rgb(148, 180, 170);
 }
+
+
+.js-confirm-delete-event{
+  display: none;
+}
 .confirm-delete-event{
 
   
   position: fixed;
   top:0px;
   left: 0px;
-  background-color: rgba(0, 0, 0, 0.235);
+  background-color: rgba(155, 151, 151, 0.235);
   height: 100vh;
   width: 100vw;
   padding: 20px;
   display: flex;
   justify-content: center;
   align-items: center;
+  
 
 }
+
+
+
+
+
 .confirm-info-container {
   height: 150px;
-  border: 2px solid black;
-  width: 500px;
-  border-radius: 10px;
-  background-color: rgb(220, 215, 215);
+  border: 1px solid rgb(0, 0, 0);
+  max-width: 1200px;
+  border-radius: 12px;
+  background-color: rgb(235, 233, 233);
   display: flex;
   justify-content: center;
   flex-direction: column;
-  align-items: center;
-}
+  padding: 50px;
+  height: 280px;
 
+  
+}
+.confirm-delete-btns {
+   display: flex;
+   justify-content: end;
+   gap: 15px;
+}
+.confirm-delete-text-title {
+  font-size: 20px;
+  color: black;
+  font-family: Arial, Helvetica, sans-serif;
+}
 .confirm-delete-text {
   font-size: 17px;
   color: black;
   font-family: Arial, Helvetica, sans-serif;
 }
 
+.cancel-btn {
+  cursor: pointer;
+  background-color: rgb(47, 113, 199);
+  border: none;
+  color: aliceblue;
+  padding: 10px 15px;
+  border-radius: 10px;
+  font-size: 20px;
+  font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+  border:1px solid black;
+}
 
+.cancel-btn:hover{
+  background-color: rgb(75, 121, 180);
+}
+
+.cancel-btn:active{
+  background-color: rgb(94, 149, 221);
+}
 .delete-btn {
   cursor: pointer;
   background-color: rgb(199, 57, 47);
