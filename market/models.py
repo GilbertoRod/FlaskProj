@@ -90,3 +90,15 @@ class UserEventFields(db.Model):
     field_8 = db.Column(db.String(length=150))
     field_9 = db.Column(db.String(length=150))
     field_10 = db.Column(db.String(length=150))
+    
+
+
+class GiverReceivers(db.Model):
+    id = db.Column(db.Integer(), primary_key=True)
+    event_id = db.Column(db.Integer(), db.ForeignKey('event.event_id'), nullable=False)
+    giver_id = db.Column(db.Integer(), db.ForeignKey('user.id'), nullable=False)
+    receiver_id = db.Column(db.Integer(), db.ForeignKey('user.id'), nullable=False)
+
+    # Relationships to access user information
+    giver = db.relationship('User', foreign_keys=[giver_id], backref='giver_relationship', lazy=True)
+    receiver = db.relationship('User', foreign_keys=[receiver_id], backref='receiver_relationship', lazy=True)

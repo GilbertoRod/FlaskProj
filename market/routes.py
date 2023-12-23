@@ -1,6 +1,7 @@
+import random
 from market import app, db
 from flask import render_template, redirect, request, url_for, flash
-from market.models import User, Event, EventMembers,EventFields,UserEventFields
+from market.models import User, Event, EventMembers,EventFields,UserEventFields,GiverReceivers
 from market.forms import RegisterForm, LoginForm, EventForm, AddUserEvent,FieldsForm,UserFieldsForm
 from flask_login import login_user, logout_user, login_required, current_user
 from datetime import datetime
@@ -161,7 +162,7 @@ def event_info(event_id):
     event_fields = EventFields.query.filter_by(event_id=event_id).first()
     member_status = EventMembers.query.filter_by(event_id=event_id,user_id=current_user.id,status='member').first()
     person_info = UserEventFields.query.filter_by(event_id=event_id,user_id=current_user.id).first()
-
+    giving = GiverReceivers.query.filter_by(event_id=event_id, giver_id=current_user.id).first()
     
 
     if not event:
@@ -214,7 +215,10 @@ def event_info(event_id):
         return redirect(url_for('event_info', event_id=event_id))
         
     
-    return render_template("info.html",event=event, form=form, event_pending=event_pending, event_fields=event_fields, fieldform=fieldform,userfieldsform=userfieldsform,member_status=member_status, person_info=person_info)
+    return render_template("info.html",event=event, form=form, event_pending=event_pending, 
+                           event_fields=event_fields, fieldform=fieldform, userfieldsform=userfieldsform,
+                           member_status=member_status, person_info=person_info, 
+                           giving=giving)
 
 
 
@@ -367,6 +371,34 @@ def leave_event(event_id):
 @app.route("/start_event/id=<int:event_id>", methods=['GET','POST'])
 @login_required
 def start_event(event_id):
+    
+    people= [ person.user_id for person in EventMembers.query.filter_by(event_id=event_id, status='member').all()]
+    if len(people)<3:
+        flash('You do not have enough members to start.', category='danger')
+        return redirect(url_for('event_info', event_id=event_id))
+    selection=dict()
+    choices=[person for person in people]
+    for person in people:
+        secret_person=random.choice(choices)
+        while secret_person==person or secret_person in selection:
+            secret_person=random.choice(choices)
+            if secret_person in selection and selection[secret_person] ==person:
+                continue
+            elif secret_person==person:
+                continue
+            break
+        selection[person]=secret_person
+        idx = choices.index(secret_person)
+        choices.pop(idx)
+    
+    try:
+        for giver,receiver in selection.items():
+            relationship_to_add=GiverReceivers(event_id=event_id, giver_id=giver, receiver_id=receiver)
+            db.session.add(relationship_to_add)
+    except:
+        flash('Something went wrong, try again!', category='danger')
+        return redirect(url_for('event_info', event_id=event_id))
+        
     event_to_update=Event.query.filter_by(event_id=event_id).first()
     event_to_update.event_status='closed'
     db.session.commit()

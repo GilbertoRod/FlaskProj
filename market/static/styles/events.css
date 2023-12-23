@@ -45,9 +45,6 @@ text-shadow: 0px 0px 5px black;
   
 }
 
-.e-status-info {
-
-}
 .event-status-info-open{
   color:rgb(46, 211, 46);
   font-weight: bold;
@@ -312,7 +309,7 @@ text-shadow: 0px 0px 5px black;
 .request-flex {
   display: flex;
   justify-content: space-between;
-  color: rgb(56, 55, 55);
+  color: rgb(255, 255, 255);
   padding: 5px;
   margin-top: 0px;
   height: 60px;
@@ -377,7 +374,11 @@ text-shadow: 0px 0px 5px black;
   font-size: large;
   font-weight: bold;
 }
-
+.field-item-title{
+  color:rgb(196, 203, 218);
+  font-size: large;
+  font-weight: bold;
+}
 .start-event-btn-inactive {
 
   background-color: rgba(32, 162, 39, 0.415);
