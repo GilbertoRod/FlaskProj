@@ -344,6 +344,26 @@ def decline_member(member_id,event_id):
 
 
 
+
+@app.route("/leave-event/event=<int:event_id>", methods=['GET','POST'])
+@login_required
+def leave_event(event_id):
+
+
+    try:
+        EventMembers.query.filter_by(event_id=event_id, user_id=current_user.id).delete()
+        UserEventFields.query.filter_by(event_id=event_id, user_id=current_user.id).delete()
+        db.session.commit()
+        flash('Successfully Left Event!', category='success')
+    except Exception as e:
+        print(e)
+        db.session.rollback()
+        flash('Error leaving event. Please try again.', category='danger')
+
+    return redirect(url_for('event_info', event_id=event_id))
+
+
+
 @app.route("/start_event/id=<int:event_id>", methods=['GET','POST'])
 @login_required
 def start_event(event_id):
