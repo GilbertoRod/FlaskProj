@@ -86,6 +86,25 @@ text-shadow: 0px 0px 5px black;
 .request-btn:active{
   background-color: rgb(30, 170, 105);
 }
+.remove-request-btn {
+  border:1px solid black;
+  cursor: pointer;
+  background-color: rgb(105, 156, 140);
+  color: aliceblue;
+  padding: 10px 15px;
+  border-radius: 10px;
+  font-size: 20px;
+  font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+  margin-right: 15px;
+}
+
+.remove-request-btn:hover{
+  background-color: rgb(129, 185, 167);
+}
+
+.remove-request-btn:active{
+  background-color: rgb(148, 180, 170);
+}
 
 .delete-btn {
   cursor: pointer;

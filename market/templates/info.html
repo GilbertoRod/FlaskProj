@@ -335,7 +335,7 @@
 
 
 
-        {% if current_user.is_authenticated and current_user.id == event.coordinator.id and event_fields and event.members|length>1 and  event.members|length==event.filled_fields|length %}
+          {% if current_user.is_authenticated and current_user.id == event.coordinator.id and event_fields and event.members|length>2 and  event.members|length==event.filled_fields|length %}
 
           <br><br><a href="{{ url_for('start_event', event_id=event.event_id) }}"><button class="start-event-btn">Start Event</button></a>
           {% elif current_user.is_authenticated and current_user.id == event.coordinator.id and event_fields and event.members|length>1 and event.members|length!=event.filled_fields|length %}
@@ -345,11 +345,11 @@
         
         
           {% elif current_user.is_authenticated and current_user.id == event.coordinator.id and event_fields and event.members|length==1 %}
-            <br><br><button class="start-event-btn-inactive" title="need 1 more participant">Start Event</button>
+            <br><br><button class="start-event-btn-inactive" title="must have at least 3 members">Start Event</button>
           
           
           {% elif current_user.is_authenticated and current_user.id == event.coordinator.id and not event_fields and event.members|length==1 %}
-            <br><br><button class="start-event-btn-inactive" title="must add at least 1 field and 1 more participant">Start Event</button>
+            <br><br><button class="start-event-btn-inactive" title="must add at least 1 field and 2 more participants">Start Event</button>
           
         
           {% elif current_user.is_authenticated and current_user.id == event.coordinator.id and not event_fields and event.members|length>1 %}
@@ -382,7 +382,7 @@
     <h1> you are giving to {{giving.receiver.first_name}}</h1>
   
   {% elif event.event_status=='closed'%}
-  
+  <center>
   <div class="event">
     <div class="titles-div">
       <h1 class="e-title"><span class="event-info-title"><span style="color:rgb(245, 41, 41);">THIS IS A CLOSED EVENT</span><br><br>{{event.event_name|title}}</span></h1>
@@ -411,6 +411,7 @@
     <div class="field-item">{{event_fields.field_8 | title}}</div>
     <div class="field-item">{{event_fields.field_9 | title}}</div>
     <div class="field-item">{{event_fields.field_10 | title}}</div>
+  </center>
 
   {% endif %}
 

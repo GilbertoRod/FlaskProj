@@ -25,11 +25,27 @@ def dashboard_page():
     
     return render_template('dashboard.html',user_events=user_events)
 
+
+
+
+def is_user_member(event, current_user):
+    for person in event.members:
+        if person.user_id == current_user.id and person.status == 'member':
+            return 'member'
+        elif person.user_id == current_user.id and person.status == 'pending':
+            return 'pending'
+    return 'none'
+
 @app.route("/events")
 @login_required
 def events_page():
     events=Event.query.order_by(Event.event_status.desc()).all()
-    return render_template('events.html', events=events)
+    return render_template('events.html', events=events, is_user_member=is_user_member)
+
+
+
+
+
 
 
 @app.route("/request_event/eventID=<int:event_id>/member=<int:member_id>", methods=['GET','POST'])
@@ -57,7 +73,21 @@ def request_event(event_id,member_id):
         
         return redirect(url_for('events_page'))
 
+@app.route("/cancel_request/eventID=<int:event_id>", methods=['GET','POST'])
+@login_required
+def cancel_request(event_id):
+        member_to_cancel=EventMembers.query.filter_by(user_id=current_user.id, event_id=event_id, status='pending')
+        if member_to_cancel.first().status=='pending':
+            try:
+                member_to_cancel.delete()
+                db.session.commit()
+                flash('Request Successfully removed!', category='success')
 
+            except:
+                flash('Error Cancelling Event!', category='danger')
+                return redirect(url_for('events_page'))
+            
+        return redirect(url_for('events_page'))
 
 
 @app.route("/delete_event/<int:event_id>", methods=['GET','POST'])
