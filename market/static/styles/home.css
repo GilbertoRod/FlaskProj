@@ -1,8 +1,9 @@
 @font-face {
   font-family: 'Grinched';
   src: url("{{ url_for('static', filename='fonts/grinched.regular.otf') }}");
-  font-weight: normal;
+
   font-style: normal;
+  font-weight: 1 1000;
 }
 body{
   padding-left: 10px;
@@ -20,9 +21,9 @@ body{
 
 .main-text{
   font-size: 135px;
-  color: brown;
+  color: rgb(161, 41, 41);
   font-family: "Grinched";
-  text-shadow: 0px 0px 7px rgb(0, 0, 0);
+  text-shadow: 0px 0px 3px rgb(255, 255, 255);
 }
 .sub-text{
   font-size: 50px;
@@ -63,7 +64,7 @@ body{
   font-size: 70px;
   font-family: "Grinched";
   color:rgb(46, 110, 34);
-  text-shadow: 0px 0px 2px rgb(255, 255, 255);
+  text-shadow: 0px 0px 3px rgb(255, 255, 255);
 }
 
 .description {

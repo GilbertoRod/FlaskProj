@@ -5,8 +5,8 @@
 @font-face {
   font-family: 'Grinched';
   src: url('{{ url_for("static", filename="fonts/grinched.regular.otf") }}');
-  font-weight: normal;
   font-style: normal;
+  font-weight: 1 1000;
 }
 body{
   margin-top: 66px;
@@ -20,7 +20,7 @@ body{
 nav{
   display: flex;
   justify-content: space-between;
-  background-color: brown;
+  background-color: rgb(165, 43, 43);
   padding: 20px 20px;
   position: fixed;
   right: 0px;
