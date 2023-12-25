@@ -389,7 +389,80 @@
   </center>
   {% elif event.event_status=='closed' and member_status %}
   <p>Closed event</p>
-    <h1> you are giving to {{giving.receiver.first_name}}</h1>
+  <div class="event">
+    <div class="titles-div">
+      <h1 class="e-title"><span class="event-info-title">{{event.event_name|title}}</span></h1>
+      <h1 class="event-title e-title">Event Coordinator: <span class="event-info">{{event.coordinator.username}}</span></h1>
+      <br><br>
+      <h1 class="event-title e-title">You are giving to:</h1>
+      <h1> {{giving.receiver.first_name}}</h1>
+      <br>
+
+
+
+      <h1 class="event-title e-title">Members:</h1>
+      <h1 class="event-title e-title">
+      
+      {% for attendee in event.members %}
+          {% if attendee.status =='member'%}
+          <div class="member-delete">
+            <li class="event-info">{{ attendee.user.username }} </li>
+          </div>
+          {% endif %}
+      {% endfor %}
+        </h1>
+    </div>
+    <br><br><br>
+    <h1 class="fields-title">Fields for This Event:</h1><br>
+    <div class="field-item">{{event_fields.field_1 | title}}: {{person_info.field_1 | title}}</div>
+    <div class="field-item">
+      {% if person_info.field_2 %}
+      {{event_fields.field_2 | title}}: {{person_info.field_2 | title}}
+      {%endif%}
+    </div>
+    <div class="field-item">
+      {% if person_info.field_3 %}
+      {{event_fields.field_3 | title}}: {{person_info.field_3 | title}}
+      {%endif%}
+    </div>
+    <div class="field-item">
+      {% if person_info.field_4 %}
+      {{event_fields.field_4 | title}}: {{person_info.field_4 | title}}</div>
+      {% endif %}
+    <div class="field-item">
+      {% if person_info.field_5 %}
+      {{event_fields.field_5 | title}}: {{person_info.field_5 | title}}
+      {% endif %}
+    </div>
+    <div class="field-item">
+      {% if person_info.field_6 %}
+      {{event_fields.field_6 | title}}: {{person_info.field_6 | title}}
+      {%endif%}  
+    </div>
+    <div class="field-item">
+      {% if person_info.field_7 %}
+      {{event_fields.field_7 | title}}: {{person_info.field_7 | title}}
+      {% endif %}
+    </div>
+    <div class="field-item">
+      {% if person_info.field_8 %}
+      {{event_fields.field_8 | title}}: {{person_info.field_8 | title}}
+      {% endif %}
+    </div>
+    <div class="field-item">
+      {% if person_info.field_9 %}
+      {{event_fields.field_9 | title}}: {{person_info.field_9 | title}}
+      {% endif%}
+    </div>
+    <div class="field-item">
+      {% if person_info.field_10 %}
+      {{event_fields.field_10 | title}}: {{person_info.field_10 | title}}
+      {% endif %}
+    </div>
+  </div>
+  </center>
+  <br><br><br>
+  
   
   {% elif event.event_status=='closed'%}
   <center>
@@ -421,6 +494,7 @@
     <div class="field-item">{{event_fields.field_8 | title}}</div>
     <div class="field-item">{{event_fields.field_9 | title}}</div>
     <div class="field-item">{{event_fields.field_10 | title}}</div>
+  </div>
   </center>
 
   {% endif %}
