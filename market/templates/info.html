@@ -423,14 +423,14 @@
       {% if event_fields.field_2 %}
         <div class="field-item form-flex">
           {{event_fields.field_2 | title}}:
-          {{ updateuserinfo.field_2(class="user-info-update")}}
+          {{ updateuserinfo.field_2(class="user-info-update", value=person_info.field_2)}}
         </div>
       {% endif %}
 
       {% if event_fields.field_3 %}
         <div class="field-item form-flex">
           {{event_fields.field_3 | title}}:
-          {{ updateuserinfo.field_3(class="user-info-update")}}
+          {{ updateuserinfo.field_3(class="user-info-update", value=person_info.field_3)}}
         </div>
 
       {% endif %}
@@ -438,53 +438,54 @@
       {% if event_fields.field_4 %}
         <div class="field-item form-flex">
           {{event_fields.field_4 | title}}:
-          {{ updateuserinfo.field_4(class="user-info-update")}}
+          {{ updateuserinfo.field_4(class="user-info-update", value=person_info.field_4)}}
         </div>
       {% endif %}
 
       {% if event_fields.field_5 %}
         <div class="field-item form-flex">
           {{event_fields.field_5 | title}}:
-          {{ updateuserinfo.field_5(class="user-info-update")}}
+          {{ updateuserinfo.field_5(class="user-info-update", value=person_info.field_5)}}
         </div>
       {% endif %}
 
       {% if event_fields.field_6 %}
         <div class="field-item form-flex">
           {{event_fields.field_6 | title}}:
-          {{ updateuserinfo.field_6(class="user-info-update")}}
+          {{ updateuserinfo.field_6(class="user-info-update", value=person_info.field_6)}}
         </div>
       {% endif %}
 
       {% if event_fields.field_7 %}
         <div class="field-item form-flex">
           {{event_fields.field_7 | title}}:
-        {{ updateuserinfo.field_7(class="user-info-update")}}
+        {{ updateuserinfo.field_7(class="user-info-update", value=person_info.field_7)}}
         </div>
       {% endif %}
 
       {% if event_fields.field_8 %}
         <div class="field-item form-flex">
           {{event_fields.field_8 | title}}:
-          {{ updateuserinfo.field_8(class="user-info-update")}}
+          {{ updateuserinfo.field_8(class="user-info-update", value=person_info.field_8)}}
         </div>
       {% endif %}
 
       {% if event_fields.field_9 %}
         <div class="field-item form-flex">
         {{event_fields.field_9 | title}}:
-        {{ updateuserinfo.field_9(class="user-info-update")}}
+        {{ updateuserinfo.field_9(class="user-info-update", value=person_info.field_9)}}
         </div>
       {% endif %}
 
       {% if event_fields.field_10 %}
         <div class="field-item form-flex">
         {{event_fields.field_10 | title}}:
-        {{ updateuserinfo.field_10(class="user-info-update")}}
+        {{ updateuserinfo.field_10(class="user-info-update", value=person_info.field_10)}}
         </div>
       {% endif %}
 
       {{updateuserinfo.submit(class='submit-info-btn')}}
+
       </div>
     </form>
     <br><br><br>
@@ -576,6 +577,7 @@
       box_to_toggle.classList.remove("confirm-delete-event")
       box_to_toggle.classList.add("js-confirm-delete-event")
     }
+    
   </script>
   {% endblock %}
 </body>
