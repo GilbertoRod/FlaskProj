@@ -83,7 +83,7 @@ class UpdateUserFieldsForm(FlaskForm):
   field_8 = StringField(validators=[DataRequired()])
   field_9 = StringField(validators=[DataRequired()])
   field_10 = StringField(validators=[DataRequired()])
-  submit = SubmitField(label='Update Info')
+  submit = SubmitField(label='Update My Info')
 
 
 

@@ -289,29 +289,6 @@
 
 
 
-        {% if current_user.is_authenticated and event_fields and member_status %}
-
-        <!--<div class="member-form-container">
-          <h1 class="event-title e-title">Member form status:</h1>
-          <p class="member-form-subtitle">All members must submit their information for this event to start*</p>
-          {% for attendee in event.members %}
-            {% if attendee.status =='member'%}
-              <div class="form-status-info">
-                <p>{{ attendee.user.username }}</p>
-                {% if attendee.filled_fields%}
-                <p>Filled</p>
-                {% else %}
-                <p>Not Filled</p>
-                {% endif %}
-              </div>
-            {% endif %}
-          {% endfor %}
-
-
-
-        </div>-->
-
-        {% endif %}
 
 
 
@@ -329,7 +306,22 @@
 
         <div class="key-btns-container">
           {% if current_user.is_authenticated and member_status and current_user.id!=event.coordinator.id %}
-          <a href="{{ url_for('leave_event', event_id=event.event_id) }}"><button class="leave-btn">Leave Event</button></a>
+
+          <br><br><br>
+          <div class="js-confirm-delete-event">
+            <div class="confirm-info-container">
+            <p class="confirm-delete-text-title">Are you sure you want to leave this event?</p><br>
+            <p class="confirm-delete-text"><b>Note</b>: You will be removed from this event.</p><br><br><br>
+            <div class="confirm-delete-btns">
+              <button class="cancel-btn"  onclick="untoggleConfirm()">Cancel</button>
+              <a href="{{ url_for('leave_event', event_id=event.event_id) }}"><button class="delete-btn">Leave</button></a>
+            </div>
+            </div>
+          </div>
+            <button class="leave-btn" onclick="toggleConfirm()">Leave Event</button>
+
+
+
           {% endif %}
 
 
@@ -501,7 +493,7 @@
     {% for attendee in event.members %}
         {% if attendee.status =='member'%}
         <div class="member-delete">
-          <li class="event-info">{{ attendee.user.username }} </li>
+          <li class="event-info">{{ attendee.user.username }} - {{ attendee.user.first_name |title}} {{ attendee.user.last_name|title }}</li>
         </div>
         {% endif %}
     {% endfor %}
