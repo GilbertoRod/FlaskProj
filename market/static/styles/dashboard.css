@@ -168,7 +168,18 @@ h3{
   background-color: rgb(194, 167, 15);
 }
 
-
-
+.browse-btn{
+  cursor: pointer;
+  background-color: rgb(69, 148, 55);
+  border: none;
+  color: aliceblue;
+  padding: 7px 10px;
+  border-radius: 10px;
+  font-size: 20px;
+  font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+}
+.browse-btn:hover{
+  background-color: rgb(88, 185, 71);
+}
 
 

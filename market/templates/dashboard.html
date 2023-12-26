@@ -96,7 +96,8 @@
         <div class="background-pic"></div>
         <img src="{{ url_for('static',filename='images/calendar.png') }}" height="250px">
         <br>
-        <span class="event-num">You have 0 Events</span>
+        <div class="event-num">You have 0 Events</div><br>
+        <a href="{{ url_for('events_page') }}" class="nav-item"><button class="browse-btn">Browse Events</button></a>
       </center>
     </div>
   </div>
