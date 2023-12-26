@@ -3,7 +3,7 @@
   
 }
 .form-div {
-  background-color: rgb(45, 45, 56);
+  background-color: rgb(57, 57, 113);
   display: inline-block;
   padding:30px;
   max-width: 500px;
@@ -50,17 +50,17 @@
   margin-right: 20px;
   justify-content: end;
   margin-top: 10px;
-  color: rgb(166, 162, 189);
+  color: rgb(203, 198, 230);
   font-size: 15px;
 }
 .account-anchor {
   text-decoration: none;
-  color: rgb(136, 97, 148)
+  color: rgb(174, 151, 181)
 }
 
 body{
   padding-top: 150px;
-  background-color: rgb(58, 58, 73);
+  background-color: rgb(122, 178, 208);
 
 }
 .alertbox{

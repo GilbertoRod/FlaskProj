@@ -40,7 +40,7 @@ class User(db.Model, UserMixin):
 class Event(db.Model):
     event_id = db.Column(db.Integer(), primary_key=True)
     coordinator_id = db.Column(db.Integer(), db.ForeignKey('user.id'), nullable=False)
-    event_name = db.Column(db.String(length=75), nullable=False, unique=True)
+    event_name = db.Column(db.String(length=75), nullable=False)
     event_date = db.Column(db.Date())
     event_status = db.Column(db.String(length=20))
     members = db.relationship('EventMembers', backref='attended_events', lazy=True)

@@ -31,12 +31,6 @@ class LoginForm(FlaskForm):
 
 class EventForm(FlaskForm):
 
-  #function that checks if a username is already existing in the database
-  def validate_event_name(self, event_name_to_check):
-    event=Event.query.filter_by(event_name=event_name_to_check.data).first()
-    if event:
-      raise ValidationError('Event name already exists, please try a different event name')
-
   event_name = StringField(label='Event Name: ', validators=[Length(min=2,max=75), DataRequired()])
   submit = SubmitField(label='Create')
   
