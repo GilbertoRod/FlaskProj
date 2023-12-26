@@ -2,7 +2,7 @@ import random
 from market import app, db
 from flask import render_template, redirect, request, url_for, flash
 from market.models import User, Event, EventMembers,EventFields,UserEventFields,GiverReceivers
-from market.forms import RegisterForm, LoginForm, EventForm, AddUserEvent,FieldsForm,UserFieldsForm
+from market.forms import RegisterForm, LoginForm, EventForm, AddUserEvent,FieldsForm, UpdateUserFieldsForm,UserFieldsForm
 from flask_login import login_user, logout_user, login_required, current_user
 from datetime import datetime
 #flask_login helps with determining the current user, this is why we're able to use the variable current_user without declaring it in html
@@ -43,7 +43,20 @@ def events_page():
     return render_template('events.html', events=events, is_user_member=is_user_member)
 
 
+@app.route("/request-person-info/eventID=<int:event_id>/person=<int:person_id>", methods=['GET','POST'])
+@login_required
+def secret_info(event_id,person_id):
 
+    if not GiverReceivers.query.filter_by(event_id=event_id, giver_id=current_user.id, receiver_id=person_id).first():
+        flash ('You don\'t have access to view this user\'s information!.', category='danger')
+        return redirect(url_for('event_info', event_id=event_id))
+
+
+
+    person_fields=UserEventFields.query.filter_by(event_id=event_id,user_id=person_id).first()
+    selected_person=User.query.filter_by(id=person_id).first()
+
+    return render_template('secretinfo.html', person_fields=person_fields, selected_person=selected_person)
 
 
 
@@ -183,6 +196,67 @@ def user_fields_add(event_id):
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+@app.route("/update-participant-info/id=<int:event_id>", methods=['GET','POST'])
+@login_required
+def user_fields_update(event_id):
+    field_to_delete=UserEventFields.query.filter_by(event_id=event_id, user_id=current_user.id).first()
+
+    if request.method == 'POST' and field_to_delete.user_id==current_user.id:
+        updateuserinfo=UpdateUserFieldsForm()
+
+        field_to_delete=UserEventFields.query.filter_by(event_id=event_id, user_id=current_user.id).first()
+
+        fields_to_add=UserEventFields(
+                                  field_id=field_to_delete.field_id,
+                                  event_id=event_id,
+                                  user_id=current_user.id,
+                                  field_1=updateuserinfo.field_1.data,
+                                  field_2=updateuserinfo.field_2.data,
+                                  field_3=updateuserinfo.field_3.data,
+                                  field_4=updateuserinfo.field_4.data,
+                                  field_5=updateuserinfo.field_5.data,
+                                  field_6=updateuserinfo.field_6.data,
+                                  field_7=updateuserinfo.field_7.data,
+                                  field_8=updateuserinfo.field_8.data,
+                                  field_9=updateuserinfo.field_9.data,
+                                  field_10=updateuserinfo.field_10.data)
+        
+        
+        db.session.delete(field_to_delete)
+        db.session.add(fields_to_add)
+        db.session.commit()
+        flash('Fields updated Successfully!', category='success')
+        return redirect(url_for('event_info', event_id=event_id))
+    else:
+        flash('You can\'t update the fields of another person!', category='danger')
+        return redirect(url_for('event_info', event_id=event_id))
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 @app.route("/event-info/id=<int:event_id>", methods=['GET','POST'])
 @login_required
 def event_info(event_id):
@@ -201,6 +275,7 @@ def event_info(event_id):
     form=AddUserEvent()
     fieldform=FieldsForm()
     userfieldsform=UserFieldsForm()
+    updateuserinfo=UpdateUserFieldsForm()
 
     if form.validate_on_submit():
         try:
@@ -242,12 +317,14 @@ def event_info(event_id):
         db.session.commit()
         flash('Fields Added Successfully!', category='success')
         return redirect(url_for('event_info', event_id=event_id))
+    
+    
         
     
     return render_template("info.html",event=event, form=form, event_pending=event_pending, 
                            event_fields=event_fields, fieldform=fieldform, userfieldsform=userfieldsform,
                            member_status=member_status, person_info=person_info, 
-                           giving=giving)
+                           giving=giving,updateuserinfo=updateuserinfo)
 
 
 

@@ -22,6 +22,7 @@
     </div>
     <br><br><br>
     <table class="main-table">
+      <tr>
       <th># of Members</th>
         <th>
             Event Name
@@ -33,10 +34,10 @@
         <th>
             Actions
         </th>
-
+      </tr>
 
         {% for event in events %}  
-        <tr>
+        <tr class="info-row">
           <td class="event-info">
             {% set count = [] %}
             {% for person in event.members%}

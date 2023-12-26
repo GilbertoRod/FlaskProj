@@ -90,6 +90,8 @@ class UserEventFields(db.Model):
     field_8 = db.Column(db.String(length=150))
     field_9 = db.Column(db.String(length=150))
     field_10 = db.Column(db.String(length=150))
+    field_titles=db.relationship('EventFields', backref='user_info_fields', lazy=True)
+
     
 
 

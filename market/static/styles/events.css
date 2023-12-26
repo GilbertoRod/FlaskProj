@@ -8,7 +8,7 @@ body{
 
 .event {
 
-  background-color: rgb(63, 64, 92);
+  background-color: rgb(57, 57, 113);
   min-height: 350px;
   max-width: 750px;
   margin-top: 100px;
@@ -332,6 +332,23 @@ text-shadow: 0px 0px 5px black;
   border-radius: 5px;
   margin-bottom: 12px;
 }
+.user-info-update {
+  font-size: 20px;
+  padding: 2px;
+  border-radius: 5px;
+  margin-bottom: 12px;
+  background-color: rgb(57, 57, 113);
+  margin-right: 140px;
+  margin-top: -4px;
+  border: none;
+  color: rgb(21, 20, 20);
+  
+}
+.user-info-update:focus{
+  background-color: aliceblue;
+}
+
+
 .form-flex {
   display: flex;
   max-width: 450px;
@@ -545,4 +562,18 @@ text-shadow: 0px 0px 5px black;
   font-size: 22px;
   color: rgb(0, 0, 0);
   font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+}
+
+
+.leave-btn{
+  cursor: pointer;
+  background-color: rgb(209, 36, 59);
+  border: none;
+  color: aliceblue;
+  padding: 10px 15px;
+  border-radius: 10px;
+  font-size: 20px;
+  font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+  margin-right: 15px;
+  border:1px solid black;
 }

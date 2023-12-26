@@ -40,7 +40,7 @@
 th{
     color: rgb(165, 203, 240);
     font-size: 20px;
-    border-bottom: 1px solid rgba(0, 0, 0, 0.241);
+    border-bottom: 1px solid rgb(0, 0, 0);
     height: 50px;
     text-align: left;
 
@@ -51,11 +51,23 @@ tr{
 }
 
 .event-info{
-    border-bottom: 1px solid rgba(255, 255, 255, 0.241);
+  border-top: 1px solid rgba(244, 244, 244, 0.528);
     margin-bottom: 10px;
     font-size: 18px;
     height: 50px;
 }
+
+
+.info-row{
+  padding: 5px;
+  
+}
+.info-row:hover{
+  background-color: rgb(78, 78, 160);
+}
+
+
+
 .open{
     color: green;
 }
@@ -307,4 +319,14 @@ background-color: rgb(218, 79, 70);
   }
   .create-btn:active{
     background-color: rgb(24, 153, 67);
+  }
+
+
+
+  .pagination{
+    border: 1px solid red;
+  }
+
+  .current{
+   background-color: red;
   }

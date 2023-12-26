@@ -76,7 +76,20 @@ class UserFieldsForm(FlaskForm):
   field_9 = StringField(validators=[DataRequired()])
   field_10 = StringField(validators=[DataRequired()])
   submit = SubmitField(label='Submit Info')
+
   
+class UpdateUserFieldsForm(FlaskForm):
+  field_1 = StringField(validators=[DataRequired()])
+  field_2 = StringField(validators=[DataRequired()])
+  field_3 = StringField(validators=[DataRequired()])
+  field_4 = StringField(validators=[DataRequired()])
+  field_5 = StringField(validators=[DataRequired()])
+  field_6 = StringField(validators=[DataRequired()])
+  field_7 = StringField(validators=[DataRequired()])
+  field_8 = StringField(validators=[DataRequired()])
+  field_9 = StringField(validators=[DataRequired()])
+  field_10 = StringField(validators=[DataRequired()])
+  submit = SubmitField(label='Update Info')
 
 
 
