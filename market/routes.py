@@ -39,9 +39,8 @@ def is_user_member(event, current_user):
 @app.route("/events")
 @login_required
 def events_page():
-    events=Event.query.order_by(Event.event_status.desc()).all()
+    events=Event.query.order_by(Event.event_status.desc(), Event.event_id.desc()).all()
     return render_template('events.html', events=events, is_user_member=is_user_member)
-
 
 
 

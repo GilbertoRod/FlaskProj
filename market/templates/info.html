@@ -388,14 +388,15 @@
 
   </center>
   {% elif event.event_status=='closed' and member_status %}
-  <p>Closed event</p>
+  <center>
   <div class="event">
     <div class="titles-div">
       <h1 class="e-title"><span class="event-info-title">{{event.event_name|title}}</span></h1>
       <h1 class="event-title e-title">Event Coordinator: <span class="event-info">{{event.coordinator.username}}</span></h1>
       <br><br>
       <h1 class="event-title e-title">You are giving to:</h1>
-      <h1> {{giving.receiver.first_name}}</h1>
+      <h1> {{giving.receiver.first_name}}</h1><br>
+      <button class="info-btn">See {{giving.receiver.first_name|title}}'s Info</button>
       <br>
 
 
@@ -413,7 +414,7 @@
         </h1>
     </div>
     <br><br><br>
-    <h1 class="fields-title">Fields for This Event:</h1><br>
+    <h1 class="fields-title">Your Fields for This Event:</h1><br>
     <div class="field-item">{{event_fields.field_1 | title}}: {{person_info.field_1 | title}}</div>
     <div class="field-item">
       {% if person_info.field_2 %}
