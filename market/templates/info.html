@@ -102,15 +102,15 @@
           <br><br>
           <form method="POST">
             {{ fieldform.hidden_tag() }}
-            {{ fieldform.field_1(class="user-info", id=1, placeholder="First Field...") }}<button class="js-button" id= "first" type="button" onclick="nextfield(2,'second','first')">Add field</button><br>
-            {{ fieldform.field_2(class="js-user-info", id=2,placeholder="Second Field...") }}<button class="js-button-inv" id= "second" type="button" onclick="nextfield(3,'third','second')">Add field</button><br>
-            {{ fieldform.field_3(class="js-user-info", id=3,placeholder="Third Field...") }}<button class="js-button-inv" id= "third" type="button" onclick="nextfield(4,'fourth','third')">Add field</button><br>
-            {{ fieldform.field_4(class="js-user-info", id=4,placeholder="Fourth Field...") }}<button class="js-button-inv" id= "fourth" type="button" onclick="nextfield(5,'fifth','fourth')">Add field</button><br>
-            {{ fieldform.field_5(class="js-user-info", id=5,placeholder="Fifth Field...") }}<button class="js-button-inv" id= "fifth" type="button" onclick="nextfield(6,'sixth','fifth')">Add field</button><br>
-            {{ fieldform.field_6(class="js-user-info", id=6,placeholder="Sixth Field...") }}<button class="js-button-inv" id= "sixth" type="button" onclick="nextfield(7,'seventh','sixth')">Add field</button><br>
-            {{ fieldform.field_7(class="js-user-info", id=7,placeholder="Seventh Field...") }}<button class="js-button-inv" id= "seventh" type="button" onclick="nextfield(8,'eight','seventh')">Add field</button><br>
-            {{ fieldform.field_8(class="js-user-info", id=8,placeholder="Eighth Field...") }}<button class="js-button-inv" id= "eight" type="button" onclick="nextfield(9,'ninth','eight')">Add field</button><br>
-            {{ fieldform.field_9(class="js-user-info", id=9,placeholder="Ninth Field...") }}<button class="js-button-inv" id= "ninth" type="button" onclick="nextfield(10,'ninth','ninth')">Add field</button><br>
+            {{ fieldform.field_1(class="user-info", id=1, placeholder="First Field...") }}<button class="js-button" id= "first" type="button" onclick="nextfield(2,'second','first')">+</button><br>
+            {{ fieldform.field_2(class="js-user-info", id=2,placeholder="Second Field...") }}<button class="js-button-inv" id= "second" type="button" onclick="nextfield(3,'third','second')">+</button><br>
+            {{ fieldform.field_3(class="js-user-info", id=3,placeholder="Third Field...") }}<button class="js-button-inv" id= "third" type="button" onclick="nextfield(4,'fourth','third')">+</button><br>
+            {{ fieldform.field_4(class="js-user-info", id=4,placeholder="Fourth Field...") }}<button class="js-button-inv" id= "fourth" type="button" onclick="nextfield(5,'fifth','fourth')">+</button><br>
+            {{ fieldform.field_5(class="js-user-info", id=5,placeholder="Fifth Field...") }}<button class="js-button-inv" id= "fifth" type="button" onclick="nextfield(6,'sixth','fifth')">+</button><br>
+            {{ fieldform.field_6(class="js-user-info", id=6,placeholder="Sixth Field...") }}<button class="js-button-inv" id= "sixth" type="button" onclick="nextfield(7,'seventh','sixth')">+</button><br>
+            {{ fieldform.field_7(class="js-user-info", id=7,placeholder="Seventh Field...") }}<button class="js-button-inv" id= "seventh" type="button" onclick="nextfield(8,'eight','seventh')">+</button><br>
+            {{ fieldform.field_8(class="js-user-info", id=8,placeholder="Eighth Field...") }}<button class="js-button-inv" id= "eight" type="button" onclick="nextfield(9,'ninth','eight')">+</button><br>
+            {{ fieldform.field_9(class="js-user-info", id=9,placeholder="Ninth Field...") }}<button class="js-button-inv" id= "ninth" type="button" onclick="nextfield(10,'ninth','ninth')">+</button><br>
             {{ fieldform.field_10(class="js-user-info", id=10,placeholder="Tenth Field...") }}<br>
             <br>
             {{ fieldform.submit(class="add-btn") }}
@@ -335,7 +335,7 @@
 
 
 
-          {% if current_user.is_authenticated and current_user.id == event.coordinator.id and event_fields and event.members|length>1 and  event.members|length==event.filled_fields|length %}
+          {% if current_user.is_authenticated and current_user.id == event.coordinator.id and event_fields and event.members|length>2 and  event.members|length==event.filled_fields|length %}
 
           <br><br><a href="{{ url_for('start_event', event_id=event.event_id) }}"><button class="start-event-btn">Start Event</button></a>
           {% elif current_user.is_authenticated and current_user.id == event.coordinator.id and event_fields and event.members|length>1 and event.members|length!=event.filled_fields|length %}
@@ -344,7 +344,7 @@
             <br><br><button class="start-event-btn-inactive" title="{{remainder}} Participant(s) not ready">Start Event</button>
         
         
-          {% elif current_user.is_authenticated and current_user.id == event.coordinator.id and event_fields and event.members|length==1 %}
+          {% elif current_user.is_authenticated and current_user.id == event.coordinator.id and event_fields and event.members|length<3 %}
             <br><br><button class="start-event-btn-inactive" title="must have at least 3 members">Start Event</button>
           
           
@@ -395,8 +395,8 @@
       <h1 class="event-title e-title">Event Coordinator: <span class="event-info">{{event.coordinator.username}}</span></h1>
       <br><br>
       <h1 class="event-title e-title">You are giving to:</h1>
-      <h1> {{giving.receiver.first_name}}</h1><br>
-      <a href="{{ url_for('secret_info', event_id=event.event_id, person_id=giving.receiver.id) }}"><button class="info-btn">See {{giving.receiver.first_name|title}}'s Info</button></a>
+      <br>
+      <a href="{{ url_for('secret_info', event_id=event.event_id, person_id=giving.receiver.id) }}"><button class="secret-btn">Secret Person</button></a>
       <br>
 
 

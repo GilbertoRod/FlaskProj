@@ -18,12 +18,21 @@ def home_page():
     return render_template('home.html')
 
 
+def get_receiver_member(event):
+    person_to_receive=GiverReceivers.query.filter_by(event_id=event, giver_id=current_user.id).first()
+    
+    return person_to_receive.receiver_id
+
+
+
+
+
 @app.route("/dashboard")
 @login_required
 def dashboard_page():
     user_events=EventMembers.query.filter_by(user_id=current_user.id,status='member').all()
     
-    return render_template('dashboard.html',user_events=user_events)
+    return render_template('dashboard.html',user_events=user_events,get_receiver_member=get_receiver_member)
 
 
 
@@ -106,8 +115,12 @@ def cancel_request(event_id):
 @login_required
 def delete_event(event_id):
     event_to_delete=Event.query.get_or_404(event_id)
+    giver_receivers=GiverReceivers.query.filter_by(event_id=event_id)
     if current_user.id == event_to_delete.coordinator_id:
         try:
+            if giver_receivers:
+                giver_receivers.delete()
+
             EventMembers.query.filter_by(event_id=event_id).delete()
             EventFields.query.filter_by(event_id=event_id).delete()
             UserEventFields.query.filter_by(event_id=event_id).delete()
