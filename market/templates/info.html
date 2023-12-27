@@ -500,6 +500,22 @@
       </h1>
 
 
+      {% if current_user.id==event.coordinator_id %}
+      <br><br><br><br><br><br>
+      <div class="js-confirm-delete-event">
+        <div class="confirm-info-container">
+        <p class="confirm-delete-text-title">Are you sure you want to finish this event?</p><br>
+        <p class="confirm-delete-text"><b>Note</b>: This will delete all of the data related to this event.</p><br><br><br>
+        <div class="confirm-delete-btns">
+          <button class="cancel-btn"  onclick="untoggleConfirm()">Cancel</button>
+          <a href="{{ url_for('delete_event', event_id=event.event_id) }}"><button class="delete-btn">Delete</button></a>
+        </div>
+        </div>
+      </div>
+        <button class="delete-btn" onclick="toggleConfirm()">Finish Event</button>
+      {% endif %}
+
+
 
   </div>
   </center>
@@ -523,6 +539,16 @@
           {% endif %}
       {% endfor %}
         </h1>
+
+
+
+
+
+
+
+
+
+        
     </div>
     <br><br><br>
     <h1 class="fields-title">Fields for This Event:</h1><br>
