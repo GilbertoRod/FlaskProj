@@ -1,5 +1,5 @@
-from market import db, login_manager
-from market import bcrypt
+from secretsanta import db, login_manager
+from secretsanta import bcrypt
 from flask_login import UserMixin
 
 #UserMixin allows is_authenticated

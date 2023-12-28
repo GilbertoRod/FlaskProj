@@ -1,8 +1,8 @@
 import random
-from market import app, db
+from secretsanta import app, db
 from flask import render_template, redirect, request, url_for, flash
-from market.models import User, Event, EventMembers,EventFields,UserEventFields,GiverReceivers
-from market.forms import RegisterForm, LoginForm, EventForm, AddUserEvent,FieldsForm, UpdateUserFieldsForm,UserFieldsForm
+from secretsanta.models import User, Event, EventMembers,EventFields,UserEventFields,GiverReceivers
+from secretsanta.forms import RegisterForm, LoginForm, EventForm, AddUserEvent,FieldsForm, UpdateUserFieldsForm,UserFieldsForm
 from flask_login import login_user, logout_user, login_required, current_user
 from datetime import datetime
 #flask_login helps with determining the current user, this is why we're able to use the variable current_user without declaring it in html
